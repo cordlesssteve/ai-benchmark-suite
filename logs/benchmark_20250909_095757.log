@@ -1,8 +1,0 @@
-2025-09-09 09:57:57,271 - INFO - 🚀 Starting benchmark suite: quick
-2025-09-09 09:57:57,271 - INFO - Models: codeparrot-small
-2025-09-09 09:57:57,271 - INFO - Description: Quick test suite (5-10 minutes)
-2025-09-09 09:57:57,271 - INFO - Starting benchmark: codeparrot-small on humaneval
-2025-09-09 09:57:57,272 - INFO - Running command: /home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/venv/bin/python main.py --model codeparrot/codeparrot-small --tasks humaneval --temperature 0.2 --save_generations --metric_output_path /home/cordlesssteve/projects/ai-benchmark-suite/results/metrics_1757429877.json --save_generations_path /home/cordlesssteve/projects/ai-benchmark-suite/results/generations_1757429877.json --precision fp16 --batch_size 1 --allow_code_execution --limit 10 --n_samples 1
-2025-09-09 10:01:24,160 - INFO - ✅ Completed: codeparrot-small on humaneval (206.9s)
-2025-09-09 10:01:24,161 - INFO - 🎉 Suite completed: quick (3.4 minutes)
-2025-09-09 10:01:24,161 - INFO - Results saved to: results/suite_quick_1757429877.json

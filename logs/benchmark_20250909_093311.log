@@ -1,3 +1,0 @@
-2025-09-09 09:33:11,392 - INFO - Starting benchmark: codeparrot-small on humaneval
-2025-09-09 09:33:11,392 - INFO - Running command: python main.py --model codeparrot/codeparrot-small --tasks humaneval --temperature 0.2 --save_generations --metric_output_path ../../results/metrics_1757428391.json --save_generations_path ../../results/generations_1757428391.json --precision fp16 --batch_size 1 --allow_code_execution --limit 2 --n_samples 5
-2025-09-09 09:33:11,393 - ERROR - ❌ Exception in codeparrot-small on humaneval: [Errno 2] No such file or directory: PosixPath('bigcode-evaluation-harness')
