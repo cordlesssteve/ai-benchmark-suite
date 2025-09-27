@@ -155,14 +155,130 @@ class UnifiedRunner:
         """Run a single benchmark task"""
         harness = self._get_harness_for_task(task)
 
-        print(f"Running {task} on {model} using {harness.value} harness...")
+        print(f"Running {task} on {model} using {harness.value} harness with model interface...")
 
-        if harness == Harness.BIGCODE:
-            return self._run_bigcode_harness(task, model, **kwargs)
-        elif harness == Harness.LM_EVAL:
-            return self._run_lm_eval_harness(task, model, **kwargs)
+        # Import model interfaces
+        from model_interfaces.ollama_interface import OllamaInterface
+        from model_interfaces.honest_bigcode_adapter import HonestBigCodeAdapter
+        from model_interfaces.real_lm_eval_adapter import RealLMEvalAdapter
+
+        # Create model interface based on model configuration
+        model_config = self._get_model_config(model)
+
+        if model_config.get('type') == 'ollama' or model in self.models_config.get('ollama_models', {}):
+            model_interface = OllamaInterface(model)
+
+            if not model_interface.is_available():
+                raise RuntimeError(f"Ollama server not available or model {model} not found")
+
+            # Route to appropriate harness with model interface
+            if harness == Harness.BIGCODE:
+                adapter = HonestBigCodeAdapter(self.project_root)
+                result = adapter.run_evaluation(task, model, model_interface, **kwargs)
+
+                return BenchmarkResult(
+                    harness="prototype_code_eval",
+                    task=task,
+                    model=model,
+                    score=result.prototype_score,
+                    metrics={
+                        "prototype_score": result.prototype_score,
+                        "basic_checks": result.basic_checks,
+                        "warning": result.warning
+                    },
+                    metadata={
+                        "prompt": result.prompt,
+                        "generated_code": result.generated_code,
+                        "evaluation_type": "prototype",
+                        "warning": result.warning
+                    },
+                    execution_time=result.execution_time
+                )
+            elif harness == Harness.LM_EVAL:
+                adapter = RealLMEvalAdapter(self.project_root)
+                result = adapter.run_evaluation(task, model, model_interface, **kwargs)
+
+                if result.success:
+                    # Extract primary metric from LM-Eval results
+                    primary_score = 0.0
+                    if result.metrics:
+                        # Try common metric names
+                        for metric_name in ['accuracy', 'acc', 'exact_match', 'score']:
+                            if metric_name in result.metrics:
+                                if isinstance(result.metrics[metric_name], dict):
+                                    primary_score = result.metrics[metric_name].get('mean', 0.0)
+                                else:
+                                    primary_score = result.metrics[metric_name]
+                                break
+
+                    return BenchmarkResult(
+                        harness="real_lm_eval",
+                        task=task,
+                        model=model,
+                        score=primary_score,
+                        metrics=result.metrics,
+                        metadata={
+                            "raw_output": result.raw_output,
+                            "evaluation_type": "real_lm_eval_harness"
+                        },
+                        execution_time=result.execution_time
+                    )
+                else:
+                    return BenchmarkResult(
+                        harness="real_lm_eval_failed",
+                        task=task,
+                        model=model,
+                        score=0.0,
+                        metrics={"error": result.error_message},
+                        metadata={
+                            "raw_output": result.raw_output,
+                            "evaluation_type": "real_lm_eval_harness",
+                            "error": result.error_message
+                        },
+                        execution_time=result.execution_time
+                    )
+            else:
+                # Fallback to direct interface for other harnesses
+                test_prompt = "def fibonacci(n):\n    # Complete this function\n"
+                interface_result = model_interface.generate(test_prompt, **kwargs)
+
+                if not interface_result.success:
+                    raise RuntimeError(f"Model generation failed: {interface_result.error_message}")
+
+                return BenchmarkResult(
+                    harness="ollama_direct",
+                    task=task,
+                    model=model,
+                    score=1.0 if len(interface_result.text) > 0 else 0.0,
+                    metrics={"generation_length": len(interface_result.text)},
+                    metadata={"prompt": test_prompt, "response": interface_result.text},
+                    execution_time=interface_result.execution_time
+                )
         else:
-            raise ValueError(f"Unsupported harness: {harness}")
+            raise ValueError(f"Unsupported model type for model: {model}")
+
+    def _get_model_config(self, model: str) -> Dict[str, Any]:
+        """Get configuration for a specific model"""
+        # Check in ollama_models
+        if model in self.models_config.get('ollama_models', {}):
+            config = self.models_config['ollama_models'][model].copy()
+            config['type'] = 'ollama'
+            return config
+
+        # Check in local_models
+        if model in self.models_config.get('local_models', {}):
+            config = self.models_config['local_models'][model].copy()
+            config['type'] = 'huggingface'
+            return config
+
+        # Check in api_models
+        if model in self.models_config.get('api_models', {}):
+            config = self.models_config['api_models'][model].copy()
+            config['type'] = 'api'
+            return config
+
+        # Default fallback - assume ollama if not found
+        return {'type': 'ollama', 'model_name': model}
 
     def run_suite(self, suite_name: str, models: List[str], **kwargs) -> List[BenchmarkResult]:
         """Run a predefined benchmark suite"""
@@ -173,15 +289,175 @@ class UnifiedRunner:
         results = []
         tasks = suite_def.get('tasks', [])
 
+        print(f"\n🚀 Running {suite_name} suite with {len(models)} model(s) and {len(tasks)} task(s)")
+        print("=" * 80)
+
         for model in models:
+            print(f"\n📊 Model: {model}")
+            print("-" * 40)
+
+            model_results = []
+            total_score = 0.0
+            successful_tasks = 0
+
             for task in tasks:
                 try:
+                    print(f"  ⏳ {task}...", end=" ", flush=True)
                     result = self.run_benchmark(task, model, **kwargs)
                     results.append(result)
+                    model_results.append(result)
+
+                    total_score += result.score
+                    successful_tasks += 1
+
+                    print(f"✅ Score: {result.score:.3f} ({result.execution_time:.1f}s)")
+
                 except Exception as e:
-                    print(f"Error running {task} on {model}: {e}")
+                    print(f"❌ Failed: {e}")
+                    # Add failed result for completeness
+                    failed_result = BenchmarkResult(
+                        harness="failed",
+                        task=task,
+                        model=model,
+                        score=0.0,
+                        metrics={"error": str(e)},
+                        metadata={"error": str(e)},
+                        execution_time=0.0
+                    )
+                    results.append(failed_result)
+                    model_results.append(failed_result)
+
+            # Print model summary
+            if successful_tasks > 0:
+                avg_score = total_score / successful_tasks
+                print(f"\n  📈 {model} Summary: {successful_tasks}/{len(tasks)} tasks completed, avg score: {avg_score:.3f}")
+            else:
+                print(f"\n  💀 {model} Summary: No tasks completed successfully")
+
+        # Print overall suite summary
+        self._print_suite_summary(suite_name, results)
+
+        # Save results to JSON if requested
+        if kwargs.get('save_results', True):
+            self._save_results_json(suite_name, results)
 
         return results
+
+    def _print_suite_summary(self, suite_name: str, results: List[BenchmarkResult]):
+        """Print detailed suite summary with metrics"""
+        print(f"\n📊 {suite_name.upper()} SUITE SUMMARY")
+        print("=" * 80)
+
+        # Group results by model and task
+        by_model = {}
+        by_task = {}
+
+        for result in results:
+            if result.model not in by_model:
+                by_model[result.model] = []
+            by_model[result.model].append(result)
+
+            if result.task not in by_task:
+                by_task[result.task] = []
+            by_task[result.task].append(result)
+
+        # Model performance comparison
+        print("\n🏆 MODEL PERFORMANCE:")
+        for model, model_results in by_model.items():
+            successful = [r for r in model_results if r.score > 0]
+            if successful:
+                avg_score = sum(r.score for r in successful) / len(successful)
+                avg_time = sum(r.execution_time for r in successful) / len(successful)
+                print(f"  {model:15s} | {len(successful):2d}/{len(model_results):2d} tasks | avg: {avg_score:.3f} | time: {avg_time:.1f}s")
+            else:
+                print(f"  {model:15s} | {0:2d}/{len(model_results):2d} tasks | avg: 0.000 | time: 0.0s")
+
+        # Task difficulty analysis
+        print("\n📋 TASK ANALYSIS:")
+        for task, task_results in by_task.items():
+            successful = [r for r in task_results if r.score > 0]
+            if successful:
+                avg_score = sum(r.score for r in successful) / len(successful)
+                success_rate = len(successful) / len(task_results)
+                print(f"  {task:15s} | {success_rate:.1%} success rate | avg score: {avg_score:.3f}")
+            else:
+                print(f"  {task:15s} | {0:.1%} success rate | avg score: 0.000")
+
+        # Harness utilization
+        print("\n🔧 HARNESS UTILIZATION:")
+        harness_counts = {}
+        for result in results:
+            harness = result.harness
+            if harness not in harness_counts:
+                harness_counts[harness] = 0
+            harness_counts[harness] += 1
+
+        for harness, count in harness_counts.items():
+            percentage = (count / len(results)) * 100
+            print(f"  {harness:20s} | {count:3d} tasks ({percentage:.1f}%)")
+
+        print("\n" + "=" * 80)
+
+    def _save_results_json(self, suite_name: str, results: List[BenchmarkResult]):
+        """Save results to JSON file for programmatic analysis"""
+        from datetime import datetime
+        import json
+
+        # Create results directory if it doesn't exist
+        results_dir = self.project_root / "results"
+        results_dir.mkdir(exist_ok=True)
+
+        # Generate timestamp for filename
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{suite_name}_{timestamp}.json"
+        filepath = results_dir / filename
+
+        # Convert results to JSON-serializable format
+        results_data = {
+            "suite_name": suite_name,
+            "timestamp": datetime.now().isoformat(),
+            "total_tasks": len(results),
+            "results": []
+        }
+
+        for result in results:
+            results_data["results"].append({
+                "harness": result.harness,
+                "task": result.task,
+                "model": result.model,
+                "score": result.score,
+                "metrics": result.metrics,
+                "metadata": result.metadata,
+                "execution_time": result.execution_time
+            })
+
+        # Calculate summary statistics
+        by_model = {}
+        for result in results:
+            if result.model not in by_model:
+                by_model[result.model] = []
+            by_model[result.model].append(result)
+
+        summary = {}
+        for model, model_results in by_model.items():
+            successful = [r for r in model_results if r.score > 0]
+            summary[model] = {
+                "total_tasks": len(model_results),
+                "successful_tasks": len(successful),
+                "average_score": sum(r.score for r in successful) / len(successful) if successful else 0.0,
+                "average_time": sum(r.execution_time for r in successful) / len(successful) if successful else 0.0,
+                "success_rate": len(successful) / len(model_results) if model_results else 0.0
+            }
+
+        results_data["summary"] = summary
+
+        # Save to file
+        with open(filepath, 'w') as f:
+            json.dump(results_data, f, indent=2)
+
+        print(f"📁 Results saved to: {filepath}")
+
+        return filepath
 
     def setup_harnesses(self):
         """Set up evaluation harnesses"""
@@ -213,18 +489,32 @@ class UnifiedRunner:
     def _setup_lm_eval(self):
         """Set up LM-Eval harness"""
         harness_dir = self.harnesses_dir / "lm-evaluation-harness"
+        venv_dir = harness_dir / "venv"
 
-        # Check if already installed
-        try:
-            import lm_eval
-            print("✅ LM-Eval harness already available")
-            return
-        except ImportError:
-            pass
+        # Check if venv exists and lm_eval is installed
+        if venv_dir.exists():
+            venv_python = venv_dir / "bin" / "python"
+            try:
+                result = subprocess.run([str(venv_python), "-c", "import lm_eval"],
+                                      capture_output=True, check=True)
+                print("✅ LM-Eval harness already available")
+                return
+            except subprocess.CalledProcessError:
+                pass
 
-        # Install LM-Eval harness
-        subprocess.run([sys.executable, "-m", "pip", "install", "-e", "."],
-                      cwd=harness_dir, check=True)
+        # Create virtual environment for LM-Eval
+        if not venv_dir.exists():
+            subprocess.run([sys.executable, "-m", "venv", "venv"], cwd=harness_dir, check=True)
+
+        # Install dependencies
+        venv_python = venv_dir / "bin" / "python"
+        pip_path = venv_dir / "bin" / "pip"
+
+        # Upgrade pip
+        subprocess.run([str(pip_path), "install", "--upgrade", "pip"], check=True)
+
+        # Install LM-Eval harness in editable mode
+        subprocess.run([str(pip_path), "install", "-e", "."], cwd=harness_dir, check=True)
 
         print("✅ LM-Eval harness setup complete")
 

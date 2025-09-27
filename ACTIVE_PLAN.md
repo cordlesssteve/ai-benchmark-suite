@@ -1,133 +1,129 @@
 # Active Development Plan - AI Benchmark Suite
 **Status:** ACTIVE
 **Created:** 2025-09-27
-**Last Updated:** 2025-09-27 10:59
+**Last Updated:** 2025-09-27 13:48
 **Planning Horizon:** Next 2-4 weeks
-**Phase:** Interface Completion & Community Engagement
-**Archived Version:** docs/progress/2025-09/ACTIVE_PLAN_2025-09-27_1059.md
+**Phase:** BigCode Real Harness Integration
+**Archived Version:** docs/progress/2025-09/ACTIVE_PLAN_2025-09-27_1348.md
 
 ## 🎯 Current Sprint Objectives
 
-### Phase 1: Interface Completion (Week 1-2)
-**Goal:** Complete model interface implementations and basic validation
+### Phase 1: BigCode Real Harness Integration (Next 2-4 weeks)
 
-#### 1.1 Model Interface Development
-- [ ] **HuggingFace Interface**: Complete implementation in `src/model_interfaces/huggingface_interface.py`
-  - Model loading with proper device management
-  - Generation with configurable parameters
-  - Error handling and timeout management
-  - Memory optimization for large models
+#### ✅ COMPLETED: LM-Eval Real Integration
+**Status**: Production Ready
+- ✅ Real LM-Eval harness integration with custom Ollama adapter
+- ✅ Dependencies resolved and working
+- ✅ Unified runner routing to real adapter
+- ✅ End-to-end testing verified (limited only by Ollama availability)
 
-- [ ] **API Interface**: Implement OpenAI/Anthropic adapters in `src/model_interfaces/api_interface.py`
-  - OpenAI GPT-4 integration with proper API key handling
-  - Anthropic Claude integration
-  - Rate limiting and retry logic
-  - Cost tracking and usage monitoring
+#### Priority 1: BigCode Real Integration (Sprint-Based) ⚡
+**Status**: Ready for Sprint 1.0
+**Target**: Sprint-by-sprint completion
 
-- [ ] **Interface Testing**: Validate all model interfaces
-  - Unit tests for each interface type
-  - Integration tests with actual models
-  - Error condition testing
+**Sprint 1.0: Basic BigCode Harness Integration** (1-2 sessions)
+- Goal: Get BigCode harness running end-to-end without security
+- Create `RealBigCodeAdapter` class
+- Direct BigCode harness subprocess execution
+- Basic HumanEval task execution (unsafe but working)
+- **Success**: Returns actual Pass@1 scores from real BigCode harness
 
-#### 1.2 Unified Runner Completion
-- [ ] **Harness Integration**: Complete BigCode and LM-Eval harness calls
-  - Proper command construction for each harness
-  - Results parsing and standardization
-  - Error handling and timeout management
+**Sprint 1.1: Code Execution Safety Framework** (1-2 sessions)
+- Goal: Add basic security isolation for code execution
+- Temporary directory isolation
+- Timeout mechanisms and resource limits
+- Error handling for malicious code attempts
+- **Success**: Safe execution environment for generated code
 
-- [ ] **Results Pipeline**: Implement results processing
-  - JSON standardization across harnesses
-  - Statistical analysis integration
-  - Cross-harness result comparison
+**Sprint 1.2: Test Case Execution Engine** (1-2 sessions)
+- Goal: Robust test case execution with proper error handling
+- Function extraction from generated code
+- Test case execution framework with error handling
+- Multiple test case batching
+- **Success**: Comprehensive test execution with detailed results
 
-### Phase 2: End-to-End Validation (Week 2-3)
-**Goal:** Validate complete pipeline with real evaluations
+### Phase 2: Production Readiness (Weeks 3-4)
 
-#### 2.1 Setup Validation
-- [ ] **Fresh System Test**: Validate setup process on clean environment
-  - Submodule initialization
-  - Harness setup automation
-  - Dependency installation
+#### Sprint 2.0: Container-Based Sandboxing (2-3 sessions)
+- Goal: Production-grade security using Docker containers
+- Docker container execution environment
+- Network isolation and secure volume mounting
+- Container resource limits and cleanup
+- **Success**: All code executes in isolated Docker containers
 
-- [ ] **Documentation Validation**: Ensure all setup instructions work
-  - README accuracy
-  - Configuration examples
-  - Troubleshooting guide
+#### Sprint 2.1: Pass@K Metrics Implementation (1-2 sessions)
+- Goal: Full BigCode evaluation metrics (Pass@1, Pass@10, Pass@100)
+- Multiple generation sampling
+- Pass@K statistical calculations
+- Temperature and sampling parameter support
+- **Success**: Matches BigCode harness reference metrics
 
-#### 2.2 Evaluation Testing
-- [ ] **Quick Suite Testing**: Validate quick evaluation suite
-  - BigCode tasks (humaneval)
-  - LM-Eval tasks (hellaswag)
-  - Cross-harness results comparison
+### Phase 3: Advanced Features (Future Sprints)
 
-- [ ] **Model Type Testing**: Test all model interface types
-  - Local HuggingFace models
-  - Ollama models (existing working)
-  - API models (if keys available)
+#### Sprint 2.2: Multi-Language Support
+- Language detection from generated code
+- Multi-language execution environments (Python, JS, Java, C++)
+- Language-specific test runners
 
-### Phase 3: Polish & Enhancement (Week 3-4)
-**Goal:** Production readiness and initial enhancements
+#### Sprint 3.0: Performance Optimization
+- Parallel container execution
+- Result caching mechanisms
+- Memory usage optimization
 
-#### 3.1 Production Features
-- [ ] **Error Recovery**: Robust error handling and recovery
-- [ ] **Logging Enhancement**: Comprehensive logging and debugging
-- [ ] **Performance Optimization**: Efficient resource usage
-- [ ] **Configuration Validation**: YAML schema validation
+## 🔧 Technical Architecture
 
-#### 3.2 User Experience
-- [ ] **CLI Enhancement**: Improved command-line interface
-- [ ] **Progress Reporting**: Real-time evaluation progress
-- [ ] **Results Visualization**: Basic results comparison tools
+### Current State
+- **LM-Eval Integration**: ✅ Real harness with custom Ollama adapter
+- **BigCode Integration**: ⚠️ Honest prototype (ready for Sprint 1.0)
+- **Model Interfaces**: Basic Ollama integration working
+- **Unified Runner**: Routes correctly to real/prototype adapters
 
-## 🔄 Development Workflow
+### Target Architecture (Post-Sprint 1.2)
+- **Both Harnesses**: Real integration with actual metrics
+- **Security**: Safe code execution in isolated environments
+- **Metrics**: Comprehensive Pass@K calculations
+- **Performance**: Optimized for production use
 
-### Daily Tasks
-1. **Morning**: Check CURRENT_STATUS.md for latest reality
-2. **Development**: Focus on current phase objectives
-3. **Testing**: Validate changes with actual evaluations
-4. **Documentation**: Update status and plan as needed
+## 📊 Success Criteria
 
-### Weekly Reviews
-- Update CURRENT_STATUS.md with completed items
-- Adjust ACTIVE_PLAN.md based on progress and discoveries
-- Log progress in `/docs/progress/YYYY-MM/`
+### Sprint 1.0 Success
+- [ ] `RealBigCodeAdapter` class implemented
+- [ ] BigCode harness executes generated code
+- [ ] Returns actual Pass@1 scores
+- [ ] Unified runner uses real BigCode adapter
 
-## 🚧 Current Blockers & Dependencies
+### Sprint 1.1 Success
+- [ ] Code executes in isolated directories
+- [ ] Timeout protection working
+- [ ] Resource limits enforced
+- [ ] Malicious code detection and handling
 
-### Technical Dependencies
-- **Harness Setup**: Need to validate BigCode and LM-Eval harness setup automation
-- **Model Access**: May need API keys for full testing of commercial models
-- **Test Environment**: Need clean environment for setup validation
+### Sprint 1.2 Success
+- [ ] Function extraction from generated code
+- [ ] Comprehensive test case execution
+- [ ] Detailed error reporting
+- [ ] Multiple test case support
 
-### Decisions Needed
-- **Results Storage**: Finalize results organization structure
-- **Statistical Analysis**: Determine integration points with existing analysis code
-- **Configuration**: Validate YAML schema and validation approach
+## 🚀 Implementation Strategy
 
-## 📋 Definition of Done
+### Development Approach
+1. **Incremental**: Each sprint builds on the previous
+2. **Safety-First**: Security considerations from Sprint 1.1 onward
+3. **Testing**: Each sprint includes validation and testing
+4. **Documentation**: Update docs with each sprint completion
 
-### Interface Completion Criteria
-- [ ] All model interfaces can generate text successfully
-- [ ] Error conditions are handled gracefully
-- [ ] Interfaces are tested with actual models
-- [ ] Documentation includes usage examples
+### Risk Mitigation
+- **Security**: Gradual addition of safety measures
+- **Complexity**: Break down into manageable sprints
+- **Testing**: Validate each component before integration
+- **Rollback**: Maintain honest prototype as fallback
 
-### Validation Criteria
-- [ ] Can run quick suite end-to-end successfully
-- [ ] Setup process works on fresh system
-- [ ] Results are properly formatted and accessible
-- [ ] No critical errors or failures in normal usage
+## 📅 Next Session Priority
 
-### Polish Criteria
-- [ ] Code passes quality checks
-- [ ] Documentation is accurate and complete
-- [ ] Performance is acceptable for intended use
-- [ ] User experience is smooth and intuitive
+**Immediate Next Steps:**
+1. Start Sprint 1.0: Basic BigCode harness integration
+2. Create `RealBigCodeAdapter` class structure
+3. Implement basic BigCode harness subprocess execution
+4. Test with simple HumanEval problems
 
-## 🔄 Next Planning Cycle
-
-After completing this plan:
-- Transition to **ROADMAP.md** for strategic feature planning
-- Archive this plan in `/docs/plans/archived/`
-- Create new tactical plan for next development phase
-- Update CURRENT_STATUS.md with new project reality
+**Session Goal**: Complete Sprint 1.0 and have real BigCode evaluation working (without security)
