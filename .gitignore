@@ -1,0 +1,174 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env.local
+.env.*.local
+
+# API Keys and Secrets
+*.key
+*.pem
+.secrets/
+secrets.json
+api_keys.json
+
+# Model files (large binary files)
+*.bin
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+models/
+model_cache/
+
+# Results and logs (keep structure, ignore content)
+results/*.json
+results/*/*.json
+results/*/*/*.json
+!results/.gitkeep
+!results/*/
+!results/*/*/
+logs/*.log
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Evaluation harness generated files
+generations*.json
+metrics*.json
+evaluations/
+eval_results/
+
+# Cache directories
+.cache/
+cache/
+__cache__/
+
+# Benchmark data downloads
+data/
+datasets/
+benchmark_data/
+
+# Local configuration overrides
+config.local.yaml
+config.local.yml
+settings.local.json
+local_settings.json
+
+# Performance and profiling
+*.prof
+*.profile
+profiling_results/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Claude Code specific
+.claude/logs/
+.claude/cache/
+
+# Git specific (for safety)
+.git/modules/
+!.gitmodules
+
+# Documentation builds
+docs/_build/
+docs/build/
+site/
+
+# Development tools
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Local development
+local_dev/
+sandbox/
+playground/
+
+# AI model outputs (can be large)
+outputs/
+generated/
+predictions/
+
+# Experiment tracking
+experiments/
+wandb/
+tensorboard_logs/
