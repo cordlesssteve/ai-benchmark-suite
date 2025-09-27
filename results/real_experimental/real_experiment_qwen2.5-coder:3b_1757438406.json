@@ -1,0 +1,112 @@
+{
+  "model_name": "qwen2.5-coder:3b",
+  "model_type": "code",
+  "timestamp": 1757438406,
+  "problems_tested": 1,
+  "template_results": {
+    "direct": {
+      "pass_at_k": {
+        "1": 1.0,
+        "5": 1.0,
+        "10": 1.0,
+        "100": 1.0
+      },
+      "success_rate": 1.0,
+      "total_samples": 1,
+      "generations": [
+        {
+          "task_id": "HumanEval/0",
+          "template": "direct",
+          "attempt": 0,
+          "prompt": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given thr...",
+          "generated_text": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. This method is efficient because it reduces the number of comparisons needed compared to checking every pair of numbers.\n\nHere's the implementation of the `has_close_elements` function:\n\n```python\nfrom typing import List\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    \n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    # Sort the list of numbers\n    sorted_numbers = sorted(numbers)\n    \n    # Iterate through the sorted list and check adjacent elements\n    for i in range(len(sorted_numbers) - 1):\n        if abs(sorted_numbers[i] - sorted_numbers[i + 1]) < threshold:\n            return True\n    \n    # If no such pair is found, return False\n    return False\n\n# Example usage\nprint(has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3))  # Output: True\n```\n\n### Explanation:\n\n1. **Sorting**: We first sort the list of numbers. Sorting helps in reducing the problem to a linear scan, as we only need to compare adjacent elements after sorting.\n\n2. **Comparison**: After sorting, we iterate through the list and check the absolute difference between each pair of adjacent elements. If any difference is less than the given threshold, we return `True`.\n\n3. **Return False**: If no such pair is found after checking all adjacent pairs, we return `False`.\n\nThis approach ensures that we efficiently find if there are any two numbers in the list that are closer to each other than the specified threshold.",
+          "extracted_code": "from typing import List\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    \n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    # Sort the list of numbers\n    sorted_numbers = sorted(numbers)\n    \n    # Iterate through the sorted list and check adjacent elements\n    for i in range(len(sorted_numbers) - 1):\n        if abs(sorted_numbers[i] - sorted_numbers[i + 1]) < threshold:\n            return True\n    \n    # If no such pair is found, return False\n    return False\n\n# Example usage\nprint(has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3))  # Output: True",
+          "execution_time": 16.530089855194092,
+          "passed": true,
+          "execution_result": "passed",
+          "error_message": null
+        }
+      ]
+    },
+    "instruction": {
+      "pass_at_k": {
+        "1": 1.0,
+        "5": 1.0,
+        "10": 1.0,
+        "100": 1.0
+      },
+      "success_rate": 1.0,
+      "total_samples": 1,
+      "generations": [
+        {
+          "task_id": "HumanEval/0",
+          "template": "instruction",
+          "attempt": 0,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if...",
+          "generated_text": "```python\n\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False\n\n\n```",
+          "extracted_code": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False",
+          "execution_time": 3.6159536838531494,
+          "passed": true,
+          "execution_result": "passed",
+          "error_message": null
+        }
+      ]
+    },
+    "few_shot": {
+      "pass_at_k": {
+        "1": 1.0,
+        "5": 1.0,
+        "10": 1.0,
+        "100": 1.0
+      },
+      "success_rate": 1.0,
+      "total_samples": 1,
+      "generations": [
+        {
+          "task_id": "HumanEval/0",
+          "template": "few_shot",
+          "attempt": 0,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in giv...",
+          "generated_text": "```python\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False\n```",
+          "extracted_code": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False",
+          "execution_time": 3.576241970062256,
+          "passed": true,
+          "execution_result": "passed",
+          "error_message": null
+        }
+      ]
+    }
+  },
+  "pass_at_k": {
+    "1": 1.0,
+    "5": 1.0,
+    "10": 1.0,
+    "100": 1.0
+  },
+  "statistical_metrics": {
+    "template_scores": {
+      "direct": 1.0,
+      "instruction": 1.0,
+      "few_shot": 1.0
+    },
+    "mean_score": 1.0,
+    "std_dev": 0.0,
+    "sensitivity": 0.0
+  },
+  "metadata": {
+    "templates_used": [
+      "direct",
+      "instruction",
+      "few_shot"
+    ],
+    "samples_per_template": 1,
+    "k_values": [
+      1,
+      5,
+      10,
+      100
+    ],
+    "timeout": 3.0,
+    "random_seed": 42
+  }
+}

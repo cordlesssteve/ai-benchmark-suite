@@ -1,0 +1,292 @@
+{
+  "model_name": "qwen2.5-coder:3b",
+  "model_type": "code",
+  "timestamp": 1757436011,
+  "problems_tested": 2,
+  "template_results": {
+    "direct": {
+      "pass_at_k": {
+        "1": 0.0,
+        "5": 0.0,
+        "10": 0.0,
+        "100": 0.0
+      },
+      "success_rate": 0.0,
+      "total_samples": 6,
+      "generations": [
+        {
+          "task_id": "HumanEval/0",
+          "template": "direct",
+          "attempt": 0,
+          "prompt": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given thr...",
+          "generated_text": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "execution_time": 11.374536275863647,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/0",
+          "template": "direct",
+          "attempt": 1,
+          "prompt": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given thr...",
+          "generated_text": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "execution_time": 1.1874303817749023,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/0",
+          "template": "direct",
+          "attempt": 2,
+          "prompt": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given thr...",
+          "generated_text": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. This method is efficient because it reduces the number of comparisons needed compared to a naive approach.\n\nHere's the implementation of the `has_close_elements` function:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve the problem of checking if any two numbers in a list are closer to each other than a given threshold, we can use a simple approach that involves sorting the list and then comparing adjacent elements. This method is efficient because it reduces the number of comparisons needed compared to a naive approach.\n\nHere's the implementation of the `has_close_elements` function:\n\n```python\nfrom typing import List",
+          "execution_time": 1.6373093128204346,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 3) (<string>, line 3)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "direct",
+          "attempt": 0,
+          "prompt": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    se...",
+          "generated_text": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. **Remove Spaces**: First, remove all spaces from the input string to simplify processing.\n\n2. **Initialize Variables**: We'll use two variables:\n   - `result`: A list to store the separated groups.\n   - `current_group`: A string to build the current group of parentheses as we iterate through the string.\n\n3. **Iterate Through the String**: Loop through each character in the string:\n   - If the character is an opening parenthesis `'('`, add it to `current_group`.\n   - If the character is a closing parenthesis `')'`, check if there is a corresponding opening parenthesis in `current_group`:\n     - If so, close the current group by appending `current_group` to `result` and reset `current_group` to an empty string.\n     - If not, it means we have a nested structure, which is not allowed according to the problem statement. In this case, we should raise an error or handle it as needed.\n\n4. **Return the Result**: After processing all characters, return the list of separated groups.\n\nHere's the implementation of the function:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. **Remove Spaces**: First, remove all spaces from the input string to simplify processing.\n\n2. **Initialize Variables**: We'll use two variables:\n   - `result`: A list to store the separated groups.\n   - `current_group`: A string to build the current group of parentheses as we iterate through the string.\n\n3. **Iterate Through the String**: Loop through each character in the string:\n   - If the character is an opening parenthesis `'('`, add it to `current_group`.\n   - If the character is a closing parenthesis `')'`, check if there is a corresponding opening parenthesis in `current_group`:\n     - If so, close the current group by appending `current_group` to `result` and reset `current_group` to an empty string.\n     - If not, it means we have a nested structure, which is not allowed according to the problem statement. In this case, we should raise an error or handle it as needed.\n\n4. **Return the Result**: After processing all characters, return the list of separated groups.\n\nHere's the implementation of the function:\n\n```python\nfrom typing import List",
+          "execution_time": 5.355571746826172,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "direct",
+          "attempt": 1,
+          "prompt": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    se...",
+          "generated_text": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. **Remove Spaces**: First, remove all spaces from the input string to simplify processing.\n\n2. **Initialize Variables**: We'll use two variables:\n   - `result`: A list to store the separated groups.\n   - `current_group`: A string to build the current group of parentheses as we iterate through the string.\n\n3. **Iterate Through the String**: Loop through each character in the string:\n   - If the character is an opening parenthesis `'('`, add it to `current_group`.\n   - If the character is a closing parenthesis `')'`, check if `current_group` is not empty and contains at least one opening parenthesis. If so, append `current_group` to `result` and reset `current_group`.\n\n4. **Return the Result**: After processing the entire string, return the list of separated groups.\n\nHere's the implementation of the function:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. **Remove Spaces**: First, remove all spaces from the input string to simplify processing.\n\n2. **Initialize Variables**: We'll use two variables:\n   - `result`: A list to store the separated groups.\n   - `current_group`: A string to build the current group of parentheses as we iterate through the string.\n\n3. **Iterate Through the String**: Loop through each character in the string:\n   - If the character is an opening parenthesis `'('`, add it to `current_group`.\n   - If the character is a closing parenthesis `')'`, check if `current_group` is not empty and contains at least one opening parenthesis. If so, append `current_group` to `result` and reset `current_group`.\n\n4. **Return the Result**: After processing the entire string, return the list of separated groups.\n\nHere's the implementation of the function:\n\n```python\nfrom typing import List",
+          "execution_time": 4.212832927703857,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "direct",
+          "attempt": 2,
+          "prompt": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    se...",
+          "generated_text": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. The key steps are:\n\n1. Remove any spaces from the input string.\n2. Use a stack to keep track of the indices where opening parentheses '(' start.\n3. When an opening parenthesis is encountered, push its index onto the stack.\n4. When a closing parenthesis ')' is encountered, pop the last index from the stack and use it to extract the substring between the current position and the popped index.\n5. Continue this process until all characters in the string have been processed.\n\nHere's the implementation of the `separate_paren_groups` function:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. The key steps are:\n\n1. Remove any spaces from the input string.\n2. Use a stack to keep track of the indices where opening parentheses '(' start.\n3. When an opening parenthesis is encountered, push its index onto the stack.\n4. When a closing parenthesis ')' is encountered, pop the last index from the stack and use it to extract the substring between the current position and the popped index.\n5. Continue this process until all characters in the string have been processed.\n\nHere's the implementation of the `separate_paren_groups` function:\n\n```python\nfrom typing import List",
+          "execution_time": 2.7820730209350586,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 9) (<string>, line 9)",
+          "error_message": null
+        }
+      ]
+    },
+    "instruction": {
+      "pass_at_k": {
+        "1": 0.0,
+        "5": 0.0,
+        "10": 0.0,
+        "100": 0.0
+      },
+      "success_rate": 0.0,
+      "total_samples": 6,
+      "generations": [
+        {
+          "task_id": "HumanEval/0",
+          "template": "instruction",
+          "attempt": 0,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.7442984580993652,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/0",
+          "template": "instruction",
+          "attempt": 1,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.28031325340270996,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/0",
+          "template": "instruction",
+          "attempt": 2,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.28429508209228516,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "instruction",
+          "attempt": 0,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this functio...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.6288318634033203,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "instruction",
+          "attempt": 1,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this functio...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.28551220893859863,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "instruction",
+          "attempt": 2,
+          "prompt": "Please complete the following Python function. Only return the code, no explanation:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this functio...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.29306626319885254,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        }
+      ]
+    },
+    "few_shot": {
+      "pass_at_k": {
+        "1": 0.0,
+        "5": 0.0,
+        "10": 0.0,
+        "100": 0.0
+      },
+      "success_rate": 0.0,
+      "total_samples": 6,
+      "generations": [
+        {
+          "task_id": "HumanEval/0",
+          "template": "few_shot",
+          "attempt": 0,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in giv...",
+          "generated_text": "To complete the function `has_close_elements`, we need to iterate through the list of numbers and check if any two numbers are closer to each other than the given threshold. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "extracted_code": "To complete the function `has_close_elements`, we need to iterate through the list of numbers and check if any two numbers are closer to each other than the given threshold. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "execution_time": 1.5130934715270996,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/0",
+          "template": "few_shot",
+          "attempt": 1,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in giv...",
+          "generated_text": "To complete the function `has_close_elements`, we need to iterate through the list of numbers and check if any two consecutive numbers are closer to each other than the given threshold. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "extracted_code": "To complete the function `has_close_elements`, we need to iterate through the list of numbers and check if any two consecutive numbers are closer to each other than the given threshold. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "execution_time": 1.0834858417510986,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/0",
+          "template": "few_shot",
+          "attempt": 2,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in giv...",
+          "generated_text": "```python\nfrom typing import List",
+          "extracted_code": "```python\nfrom typing import List",
+          "execution_time": 0.28396034240722656,
+          "passed": false,
+          "execution_result": "failed: invalid syntax (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "few_shot",
+          "attempt": 0,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a ...",
+          "generated_text": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. We'll ignore spaces and ensure that each group is separated from others without being nested within each other.\n\nHere's how you can implement the `separate_paren_groups` function:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. We'll ignore spaces and ensure that each group is separated from others without being nested within each other.\n\nHere's how you can implement the `separate_paren_groups` function:\n\n```python\nfrom typing import List",
+          "execution_time": 1.6640422344207764,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "few_shot",
+          "attempt": 1,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a ...",
+          "generated_text": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. **Initialize Variables**: We'll use a stack to keep track of the indices where we start new groups and a list to store the resulting groups.\n\n2. **Iterate Through the String**: As we iterate through each character in the string, we'll handle the following cases:\n   - If the character is an opening parenthesis `(`, push its index onto the stack.\n   - If the character is a closing parenthesis `)`, pop the top index from the stack and use it to slice the substring between the current position and the popped index. This gives us one group of parentheses.\n\n3. **Handle Spaces**: Since we ignore spaces, we can safely skip them during iteration.\n\n4. **Return the Result**: After processing the entire string, return the list of groups.\n\nHere's the implementation:\n\n```python\nfrom typing import List",
+          "extracted_code": "To solve this problem, we need to parse the input string and identify groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. **Initialize Variables**: We'll use a stack to keep track of the indices where we start new groups and a list to store the resulting groups.\n\n2. **Iterate Through the String**: As we iterate through each character in the string, we'll handle the following cases:\n   - If the character is an opening parenthesis `(`, push its index onto the stack.\n   - If the character is a closing parenthesis `)`, pop the top index from the stack and use it to slice the substring between the current position and the popped index. This gives us one group of parentheses.\n\n3. **Handle Spaces**: Since we ignore spaces, we can safely skip them during iteration.\n\n4. **Return the Result**: After processing the entire string, return the list of groups.\n\nHere's the implementation:\n\n```python\nfrom typing import List",
+          "execution_time": 5.098918914794922,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        },
+        {
+          "task_id": "HumanEval/1",
+          "template": "few_shot",
+          "attempt": 2,
+          "prompt": "Example:\ndef add_numbers(a, b):\n    return a + b\n\nNow complete this function:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a ...",
+          "generated_text": "To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "extracted_code": "To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's how you can implement this:\n\n```python\nfrom typing import List",
+          "execution_time": 0.924307107925415,
+          "passed": false,
+          "execution_result": "failed: unterminated string literal (detected at line 1) (<string>, line 1)",
+          "error_message": null
+        }
+      ]
+    }
+  },
+  "pass_at_k": {
+    "1": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "100": 0.0
+  },
+  "statistical_metrics": {
+    "template_scores": {
+      "direct": 0.0,
+      "instruction": 0.0,
+      "few_shot": 0.0
+    },
+    "mean_score": 0.0,
+    "std_dev": 0.0,
+    "sensitivity": 0.0
+  },
+  "metadata": {
+    "templates_used": [
+      "direct",
+      "instruction",
+      "few_shot"
+    ],
+    "samples_per_template": 3,
+    "k_values": [
+      1,
+      5,
+      10,
+      100
+    ],
+    "timeout": 3.0,
+    "random_seed": 42
+  }
+}

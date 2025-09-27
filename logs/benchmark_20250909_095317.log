@@ -1,0 +1,3 @@
+2025-09-09 09:53:17,088 - INFO - Starting benchmark: codeparrot-small on mbpp
+2025-09-09 09:53:17,089 - INFO - Running command: /home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/venv/bin/python main.py --model codeparrot/codeparrot-small --tasks mbpp --temperature 0.2 --save_generations --metric_output_path /home/cordlesssteve/projects/ai-benchmark-suite/results/metrics_1757429597.json --save_generations_path /home/cordlesssteve/projects/ai-benchmark-suite/results/generations_1757429597.json --precision fp16 --batch_size 1 --allow_code_execution --limit 1 --n_samples 3
+2025-09-09 09:57:52,345 - INFO - ✅ Completed: codeparrot-small on mbpp (275.3s)

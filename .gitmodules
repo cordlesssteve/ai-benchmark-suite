@@ -1,0 +1,10 @@
+[submodule "harnesses/bigcode-evaluation-harness"]
+	path = harnesses/bigcode-evaluation-harness
+	url = https://github.com/bigcode-project/bigcode-evaluation-harness.git
+	branch = main
+	update = rebase
+[submodule "harnesses/lm-evaluation-harness"]
+	path = harnesses/lm-evaluation-harness
+	url = https://github.com/EleutherAI/lm-evaluation-harness.git
+	branch = main
+	update = rebase

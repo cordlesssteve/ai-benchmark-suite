@@ -1,0 +1,108 @@
+{
+  "benchmark": "humaneval",
+  "generated_at": "2025-09-09T10:05:00.720520",
+  "rankings": [
+    {
+      "model": "codeparrot_codeparrot-small",
+      "primary_score": 0.0,
+      "all_scores": {
+        "humaneval": {
+          "pass@1": 0.0
+        }
+      },
+      "config": {
+        "prefix": "",
+        "do_sample": true,
+        "temperature": 0.2,
+        "top_k": 0,
+        "top_p": 0.95,
+        "n_samples": 1,
+        "eos": "<|endoftext|>",
+        "seed": 0,
+        "model": "codeparrot/codeparrot-small",
+        "modeltype": "causal",
+        "peft_model": null,
+        "revision": null,
+        "use_auth_token": false,
+        "trust_remote_code": false,
+        "tasks": "humaneval",
+        "instruction_tokens": null,
+        "batch_size": 1,
+        "max_length_generation": 512,
+        "precision": "fp16",
+        "load_in_8bit": false,
+        "load_in_4bit": false,
+        "left_padding": false,
+        "limit": 10,
+        "limit_start": 0,
+        "save_every_k_tasks": -1,
+        "postprocess": true,
+        "allow_code_execution": true,
+        "generation_only": false,
+        "load_generations_path": null,
+        "load_data_path": null,
+        "metric_output_path": "/home/cordlesssteve/projects/ai-benchmark-suite/results/metrics_1757429877.json",
+        "save_generations": true,
+        "load_generations_intermediate_paths": null,
+        "save_generations_path": "/home/cordlesssteve/projects/ai-benchmark-suite/results/generations_1757429877.json",
+        "save_references": false,
+        "save_references_path": "references.json",
+        "prompt": "prompt",
+        "max_memory_per_gpu": null,
+        "check_references": false
+      },
+      "file": "codeparrot_codeparrot-small_2025-09-09_metrics_1757429877.json"
+    },
+    {
+      "model": "codeparrot_codeparrot-small",
+      "primary_score": 0.0,
+      "all_scores": {
+        "humaneval": {
+          "pass@1": 0.0
+        }
+      },
+      "config": {
+        "prefix": "",
+        "do_sample": true,
+        "temperature": 0.2,
+        "top_k": 0,
+        "top_p": 0.95,
+        "n_samples": 5,
+        "eos": "<|endoftext|>",
+        "seed": 0,
+        "model": "codeparrot/codeparrot-small",
+        "modeltype": "causal",
+        "peft_model": null,
+        "revision": null,
+        "use_auth_token": false,
+        "trust_remote_code": false,
+        "tasks": "humaneval",
+        "instruction_tokens": null,
+        "batch_size": 1,
+        "max_length_generation": 512,
+        "precision": "fp16",
+        "load_in_8bit": false,
+        "load_in_4bit": false,
+        "left_padding": false,
+        "limit": 2,
+        "limit_start": 0,
+        "save_every_k_tasks": -1,
+        "postprocess": true,
+        "allow_code_execution": true,
+        "generation_only": false,
+        "load_generations_path": null,
+        "load_data_path": null,
+        "metric_output_path": "/home/cordlesssteve/projects/ai-benchmark-suite/results/metrics_1757429359.json",
+        "save_generations": true,
+        "load_generations_intermediate_paths": null,
+        "save_generations_path": "/home/cordlesssteve/projects/ai-benchmark-suite/results/generations_1757429359.json",
+        "save_references": false,
+        "save_references_path": "references.json",
+        "prompt": "prompt",
+        "max_memory_per_gpu": null,
+        "check_references": false
+      },
+      "file": "codeparrot_codeparrot-small_2025-09-09_metrics_1757429359.json"
+    }
+  ]
+}

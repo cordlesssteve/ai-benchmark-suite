@@ -1,0 +1,103 @@
+# AI Benchmark Suite - Benchmark Configuration
+# Define which benchmarks to run and their settings
+
+# Benchmark definitions
+benchmarks:
+  humaneval:
+    name: "HumanEval"
+    task: "humaneval"
+    description: "164 Python programming problems with functional correctness testing"
+    samples: 164
+    n_samples: 5  # For Pass@5 calculation
+    allow_code_execution: true
+    timeout: 10
+    
+  humaneval_plus:
+    name: "HumanEval+"
+    task: "humanevalplus"
+    description: "HumanEval with additional test cases"
+    samples: 164
+    n_samples: 5
+    allow_code_execution: true
+    timeout: 10
+    
+  mbpp:
+    name: "MBPP"
+    task: "mbpp"
+    description: "1000 Python programming problems"
+    samples: 1000
+    n_samples: 3
+    allow_code_execution: true
+    timeout: 10
+    
+  ds1000_numpy:
+    name: "DS-1000 NumPy"
+    task: "ds1000-numpy-completion"
+    description: "Data science problems using NumPy"
+    samples: null  # Use all available
+    n_samples: 1
+    allow_code_execution: true
+    timeout: 15
+    
+  apps_introductory:
+    name: "APPS Introductory"
+    task: "apps-introductory"
+    description: "Introductory programming problems"
+    samples: null
+    n_samples: 1
+    allow_code_execution: true
+    timeout: 30
+
+# Benchmark suites for different use cases
+suites:
+  quick:
+    description: "Quick test suite (5-10 minutes)"
+    benchmarks:
+      - name: "humaneval"
+        limit: 10
+        n_samples: 1
+        
+  standard:
+    description: "Standard evaluation suite (30-60 minutes)"
+    benchmarks:
+      - name: "humaneval"
+        limit: null
+        n_samples: 3
+      - name: "mbpp"
+        limit: 100
+        n_samples: 3
+        
+  comprehensive:
+    description: "Full evaluation suite (2-4 hours)"
+    benchmarks:
+      - name: "humaneval"
+        limit: null
+        n_samples: 5
+      - name: "humaneval_plus"
+        limit: null 
+        n_samples: 5
+      - name: "mbpp"
+        limit: null
+        n_samples: 3
+      - name: "ds1000_numpy"
+        limit: 50
+        n_samples: 1
+        
+  research:
+    description: "Research-grade evaluation (6+ hours)"
+    benchmarks:
+      - name: "humaneval"
+        limit: null
+        n_samples: 10
+      - name: "humaneval_plus"
+        limit: null
+        n_samples: 10
+      - name: "mbpp"
+        limit: null
+        n_samples: 5
+      - name: "ds1000_numpy"
+        limit: null
+        n_samples: 3
+      - name: "apps_introductory"
+        limit: 100
+        n_samples: 1

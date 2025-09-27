@@ -1,0 +1,3 @@
+2025-09-09 09:49:19,488 - INFO - Starting benchmark: codeparrot-small on humaneval
+2025-09-09 09:49:19,489 - INFO - Running command: /home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/venv/bin/python main.py --model codeparrot/codeparrot-small --tasks humaneval --temperature 0.2 --save_generations --metric_output_path /home/cordlesssteve/projects/ai-benchmark-suite/results/metrics_1757429359.json --save_generations_path /home/cordlesssteve/projects/ai-benchmark-suite/results/generations_1757429359.json --precision fp16 --batch_size 1 --allow_code_execution --limit 2 --n_samples 5
+2025-09-09 09:52:59,433 - INFO - ✅ Completed: codeparrot-small on humaneval (219.9s)

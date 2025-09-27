@@ -1,0 +1,29 @@
+2025-09-09 09:45:29,835 - INFO - Starting benchmark: codeparrot-small on humaneval
+2025-09-09 09:45:29,835 - INFO - Running command: /home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/venv/bin/python main.py --model codeparrot/codeparrot-small --tasks humaneval --temperature 0.2 --save_generations --metric_output_path ../../results/metrics_1757429129.json --save_generations_path ../../results/generations_1757429129.json --precision fp16 --batch_size 1 --allow_code_execution --limit 2 --n_samples 5
+2025-09-09 09:49:05,835 - ERROR - ❌ Failed: codeparrot-small on humaneval
+2025-09-09 09:49:05,835 - ERROR - Error: 
+  0%|          | 0/10 [00:00<?, ?it/s]
+ 10%|█         | 1/10 [00:16<02:27, 16.35s/it]
+ 20%|██        | 2/10 [00:33<02:16, 17.08s/it]
+ 30%|███       | 3/10 [01:00<02:28, 21.20s/it]
+ 40%|████      | 4/10 [01:16<01:56, 19.35s/it]
+ 50%|█████     | 5/10 [01:34<01:34, 18.81s/it]
+ 60%|██████    | 6/10 [01:55<01:17, 19.46s/it]
+ 70%|███████   | 7/10 [02:34<01:18, 26.10s/it]
+ 80%|████████  | 8/10 [02:50<00:45, 22.75s/it]
+ 90%|█████████ | 9/10 [03:06<00:20, 20.50s/it]
+100%|██████████| 10/10 [03:27<00:00, 20.79s/it]
+100%|██████████| 10/10 [03:27<00:00, 20.75s/it]
+Traceback (most recent call last):
+  File "/home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/main.py", line 414, in <module>
+    main()
+  File "/home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/main.py", line 398, in main
+    results[task] = evaluator.evaluate(
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/bigcode_eval/evaluator.py", line 100, in evaluate
+    self.save_json_files(generations, references, save_generations_path, f"references_{task_name}.json")
+  File "/home/cordlesssteve/projects/ai-benchmark-suite/bigcode-evaluation-harness/bigcode_eval/evaluator.py", line 118, in save_json_files
+    with open(save_generations_path, "w") as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../../results/generations_1757429129_humaneval.json'
+

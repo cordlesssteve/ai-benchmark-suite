@@ -1,0 +1,41 @@
+{
+  "model": "qwen2.5-coder:3b",
+  "task": "humaneval",
+  "timestamp": 1757431951,
+  "config": {
+    "n_samples": 1,
+    "limit": 2,
+    "task_count": 2
+  },
+  "generations": [
+    {
+      "task_id": "HumanEval/0",
+      "prompt": "from typing import List\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
+      "generations": [
+        "To solve this problem, we need to iterate through the list of numbers and check if any two consecutive numbers are closer to each other than the given threshold. If such a pair is found, we return `True`; otherwise, we return `False`.\n\nHere's the complete implementation of the function:\n\n"
+      ],
+      "canonical_solution": "    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False\n",
+      "test": "assert has_close_elements([1.0, 2.0, 3.0], 0.5) == False"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "prompt": "from typing import List\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group and return the list containing them. Each group is balanced (each open brace is properly closed) and each group is separated from other groups.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n",
+      "generations": [
+        "To solve this problem, we need to parse the input string and identify groups of nested parentheses. Each group should be balanced and separated from others. Here's a step-by-step approach to implement the `separate_paren_groups` function:\n\n1. Initialize an empty list to store the separate groups.\n2. Use a counter to keep track of the current depth of nesting.\n3. Iterate through each character in the input string:\n   - If the character is an opening parenthesis '(', increment the counter and add it to the current group being built.\n   - If the character is a closing parenthesis ')', decrement the counter and add it to the current group.\n   - When the counter returns to zero, it indicates that we have completed a balanced group. Add this group to the list of results.\n4. Return the list of separated groups.\n\nHere's the implementation:\n\n"
+      ],
+      "canonical_solution": "    result = []\n    current_string = []\n    current_depth = 0\n    \n    for c in paren_string:\n        if c == '(':\n            current_depth += 1\n            current_string.append(c)\n        elif c == ')':\n            current_depth -= 1\n            current_string.append(c)\n            \n            if current_depth == 0:\n                result.append(''.join(current_string))\n                current_string = []\n                \n    return result\n",
+      "test": "assert separate_paren_groups('( ) (( )) (( )( ))') == ['()', '(())', '(()())']"
+    }
+  ],
+  "evaluations": [],
+  "metrics": {
+    "humaneval": {
+      "pass@1": 0.0
+    }
+  },
+  "summary": {
+    "total_problems": 2,
+    "passed_problems": 0,
+    "pass_rate": 0.0
+  }
+}

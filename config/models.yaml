@@ -1,0 +1,48 @@
+# Model Configurations
+# Defines available models and their parameters
+
+# Local HuggingFace Models
+local_models:
+  codeparrot-small:
+    model_id: "codeparrot/codeparrot-small"
+    type: "code"
+    size: "110M"
+    temperature: 0.2
+    precision: "fp16"
+    batch_size: 1
+    description: "Small test model for quick validation"
+
+  starcoder:
+    model_id: "bigcode/starcoder"
+    type: "code"
+    size: "15B"
+    temperature: 0.2
+    precision: "fp16"
+    batch_size: 1
+    trust_remote_code: true
+    description: "Large code generation model"
+
+# Ollama Models (local inference)
+ollama_models:
+  phi3:
+    model_name: "phi3:latest"
+    type: "general"
+    temperature: 0.2
+    description: "Microsoft Phi-3 model"
+
+  qwen-coder:
+    model_name: "qwen2.5-coder:3b"
+    type: "code"
+    temperature: 0.2
+    description: "Qwen 2.5 Coder specialized model"
+
+# API Models (require API keys)
+api_models:
+  gpt-4:
+    provider: "openai"
+    model_id: "gpt-4"
+    type: "general"
+    temperature: 0.2
+    max_tokens: 2048
+    api_key_env: "OPENAI_API_KEY"
+    description: "OpenAI GPT-4"

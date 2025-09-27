@@ -1,0 +1,72 @@
+# Task to Harness Mappings
+# Defines which evaluation harness to use for each task
+
+task_mappings:
+  # BigCode tasks (code generation)
+  humaneval: bigcode
+  mbpp: bigcode
+  apps: bigcode
+  ds1000: bigcode
+  humanevalpack: bigcode
+  multiple-py: bigcode
+  multiple-js: bigcode
+  multiple-java: bigcode
+
+  # LM-Eval tasks (language understanding)
+  hellaswag: lm_eval
+  arc_easy: lm_eval
+  arc_challenge: lm_eval
+  winogrande: lm_eval
+  mathqa: lm_eval
+  gsm8k: lm_eval
+  truthfulqa: lm_eval
+  mmlu: lm_eval
+  piqa: lm_eval
+  openbookqa: lm_eval
+
+# Harness-specific configurations
+harness_configs:
+  bigcode:
+    executable: "harnesses/bigcode-evaluation-harness/venv/bin/python"
+    main_script: "main.py"
+    working_directory: "harnesses/bigcode-evaluation-harness"
+    default_args:
+      allow_code_execution: true
+      save_generations: true
+      precision: "fp16"
+      batch_size: 1
+
+  lm_eval:
+    executable: "python"
+    main_script: "-m lm_eval"
+    working_directory: "harnesses/lm-evaluation-harness"
+    default_args:
+      model: "hf"
+      batch_size: "auto"
+      device: "auto"
+
+# Model type detection for harness selection
+model_patterns:
+  bigcode_models:
+    - "codeparrot"
+    - "starcoder"
+    - "santacoder"
+    - "incoder"
+    - "codegen"
+    - "code-"
+    - "coder"
+
+  general_models:
+    - "gpt"
+    - "claude"
+    - "llama"
+    - "mistral"
+    - "phi"
+    - "qwen"
+
+# Custom harness definitions
+custom_harnesses:
+  # Placeholder for future custom evaluation frameworks
+  experimental:
+    description: "Experimental evaluation framework"
+    tasks: []

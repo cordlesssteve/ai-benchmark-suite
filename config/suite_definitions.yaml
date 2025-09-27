@@ -1,0 +1,114 @@
+# Benchmark Suite Definitions
+# Defines collections of tasks to run together
+
+suites:
+  quick:
+    description: "Quick test suite for rapid validation (~5-10 minutes)"
+    tasks:
+      - humaneval
+      - hellaswag
+    settings:
+      limit: 10
+      n_samples: 1
+      temperature: 0.2
+    estimated_time: "5-10 minutes"
+
+  standard:
+    description: "Standard evaluation suite (~30-60 minutes)"
+    tasks:
+      - humaneval
+      - mbpp
+      - hellaswag
+      - arc_easy
+      - winogrande
+    settings:
+      limit: 50
+      n_samples: 5
+      temperature: 0.2
+    estimated_time: "30-60 minutes"
+
+  comprehensive:
+    description: "Comprehensive evaluation across multiple domains (~2-4 hours)"
+    tasks:
+      # Code generation
+      - humaneval
+      - mbpp
+      - apps
+      - ds1000
+      # Language understanding
+      - hellaswag
+      - arc_easy
+      - arc_challenge
+      - winogrande
+      - mathqa
+      - gsm8k
+    settings:
+      limit: null  # No limit - run all problems
+      n_samples: 10
+      temperature: 0.2
+    estimated_time: "2-4 hours"
+
+  research:
+    description: "Research-grade evaluation with statistical rigor (~6-12 hours)"
+    tasks:
+      - humaneval
+      - mbpp
+      - hellaswag
+      - arc_challenge
+      - mathqa
+      - gsm8k
+    settings:
+      limit: null
+      n_samples: 100
+      temperature: 0.2
+      statistical_analysis: true
+      bootstrap_samples: 1000
+    estimated_time: "6-12 hours"
+
+  code_only:
+    description: "Code generation benchmarks only"
+    tasks:
+      - humaneval
+      - mbpp
+      - apps
+      - ds1000
+    settings:
+      limit: null
+      n_samples: 20
+      temperature: 0.2
+
+  language_only:
+    description: "Language understanding benchmarks only"
+    tasks:
+      - hellaswag
+      - arc_easy
+      - arc_challenge
+      - winogrande
+      - mathqa
+      - gsm8k
+    settings:
+      limit: null
+      n_samples: 10
+      temperature: 0.2
+
+# Task Categories
+categories:
+  code_generation:
+    - humaneval
+    - mbpp
+    - apps
+    - ds1000
+
+  language_understanding:
+    - hellaswag
+    - arc_easy
+    - arc_challenge
+    - winogrande
+
+  mathematical_reasoning:
+    - mathqa
+    - gsm8k
+
+  common_sense:
+    - hellaswag
+    - winogrande
