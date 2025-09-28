@@ -117,6 +117,7 @@ class RealBigCodeAdapter:
         adapter_code = f'''
 """
 Temporary Ollama adapter for BigCode evaluation harness
+Sprint 2.1: Enhanced with multiple sampling support for Pass@K metrics
 """
 
 import requests
@@ -133,12 +134,15 @@ from transformers import (
 import torch
 
 class OllamaBigCodeModel:
-    """BigCode adapter for Ollama models"""
+    """BigCode adapter for Ollama models with Pass@K support"""
 
     def __init__(self, model_name: str = "{model_name}", base_url: str = "http://localhost:11434"):
         self.model_name = model_name
         self.base_url = base_url
         self.session = requests.Session()
+
+        # Sprint 2.1: Track sampling parameters for multiple generations
+        self.generation_count = 0
 
         # Create a dummy tokenizer for BigCode compatibility
         # This won't be used for actual tokenization, just for interface compatibility
@@ -215,20 +219,33 @@ class OllamaBigCodeModel:
             return dummy_output
 
     def _ollama_generate(self, prompt: str, generation_kwargs: Dict[str, Any]) -> str:
-        """Generate text using Ollama API"""
+        """Generate text using Ollama API with enhanced sampling for Pass@K"""
         try:
             # Extract generation parameters
             max_new_tokens = generation_kwargs.get('max_new_tokens', 512)
-            temperature = generation_kwargs.get('temperature', 0.1)
+            temperature = generation_kwargs.get('temperature', 0.2)  # Slightly higher for diversity
             do_sample = generation_kwargs.get('do_sample', True)
+
+            # Sprint 2.1: Add sampling diversity for Pass@K metrics
+            # Increment generation count for tracking
+            self.generation_count += 1
+
+            # Add slight randomness for multiple sampling even at low temperature
+            if do_sample and self.generation_count > 1:
+                # Add small amount of randomness for diversity in multiple samples
+                actual_temperature = max(temperature, 0.1)
+            else:
+                actual_temperature = temperature
 
             payload = {{
                 "model": self.model_name,
                 "prompt": prompt,
                 "stream": False,
                 "options": {{
-                    "temperature": temperature if do_sample else 0.0,
+                    "temperature": actual_temperature if do_sample else 0.0,
                     "num_predict": max_new_tokens,
+                    "top_p": 0.95,  # Add nucleus sampling for diversity
+                    "repeat_penalty": 1.05,  # Prevent repetition
                 }}
             }}
 
@@ -294,6 +311,14 @@ tokenizer = model.tokenizer
         limit = kwargs.get('limit', 1)
         cmd.extend(["--limit", str(limit)])
 
+        # Sprint 2.1: Add multiple sampling support for Pass@K metrics
+        n_samples = kwargs.get('n_samples', 1)
+        cmd.extend(["--n_samples", str(n_samples)])
+
+        # Add temperature control for sampling
+        temperature = kwargs.get('temperature', 0.2)
+        cmd.extend(["--temperature", str(temperature)])
+
         # Add other parameters
         if max_length := kwargs.get('max_length_generation', 512):
             cmd.extend(["--max_length_generation", str(max_length)])
@@ -358,7 +383,7 @@ tokenizer = model.tokenizer
                 pass
 
     def _parse_bigcode_output(self, output: str) -> Dict[str, Any]:
-        """Parse metrics from BigCode harness output"""
+        """Parse metrics from BigCode harness output with Pass@K support"""
         metrics = {}
 
         try:
@@ -371,20 +396,20 @@ tokenizer = model.tokenizer
                         metrics = data
                         return metrics
 
-            # Parse output text for metrics
+            # Sprint 2.1: Enhanced parsing for Pass@K metrics
             lines = output.split('\n')
             for line in lines:
-                # Look for pass@k metrics
+                # Look for pass@k metrics with more robust pattern matching
                 if "pass@" in line.lower():
                     try:
                         import re
-                        # Extract pass@k metrics like "pass@1: 0.85"
-                        match = re.search(r'pass@(\d+):\s*([\d.]+)', line.lower())
-                        if match:
+                        # Extract pass@k metrics like "pass@1: 0.85" or "pass@10": 0.42
+                        matches = re.finditer(r'pass@(\d+)[\s\"\':]+\s*([\d.]+)', line.lower())
+                        for match in matches:
                             k = match.group(1)
                             score = float(match.group(2))
                             metrics[f"pass@{k}"] = score
-                    except:
+                    except Exception as parse_error:
                         continue
 
                 # Look for other BigCode metrics
@@ -396,6 +421,23 @@ tokenizer = model.tokenizer
                             metrics["extracted_score"] = float(numbers[-1])
                     except:
                         continue
+
+            # Sprint 2.1: Look for multiple Pass@K values
+            # Try to extract from JSON-like structures in output
+            try:
+                import re
+                json_pattern = r'\{[^}]*"pass@\d+"[^}]*\}'
+                json_matches = re.findall(json_pattern, output)
+                for json_str in json_matches:
+                    try:
+                        parsed_json = json.loads(json_str)
+                        for key, value in parsed_json.items():
+                            if key.startswith('pass@') and isinstance(value, (int, float)):
+                                metrics[key] = float(value)
+                    except:
+                        continue
+            except:
+                pass
 
             # If no metrics found, set default
             if not metrics:
