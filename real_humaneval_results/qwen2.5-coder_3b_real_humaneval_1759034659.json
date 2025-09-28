@@ -1,0 +1,65 @@
+{
+  "model": "qwen2.5-coder:3b",
+  "evaluation_type": "humaneval_real",
+  "timestamp": 1759034659.2070954,
+  "dataset_source": "openai_humaneval",
+  "total_problems": 5,
+  "passed": 0,
+  "failed": 5,
+  "pass_at_1": 0.0,
+  "percentage": 0.0,
+  "total_time": 68.67917346954346,
+  "avg_time_per_problem": 13.735834693908691,
+  "results": [
+    {
+      "task_id": "HumanEval/0",
+      "passed": false,
+      "result": "File \"/tmp/tmp7_xvxpgg.py\", line 32\n    Certainly! Below is the completed Python code for the `has_close_elements` function with type annotations and a docstring:\n             ^\nSyntaxError: invalid syntax",
+      "completion": "Certainly! Below is the completed Python code for the `has_close_elements` function with type annotations and a docstring:\n\n```python\nfrom typing import List",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmp7_xvxpgg.py\", line 32\n    Certainly! Below is the completed Python code for the `has_close_elements` function with type annotations and a docstring:\n             ^\nSyntaxError: invalid syntax",
+      "execution_time": 30.476245880126953,
+      "model": "qwen2.5-coder:3b"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "passed": false,
+      "result": "File \"/tmp/tmp2_3u9q91.py\", line 31\n    To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n                                                                                                                                        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+      "completion": "To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. Remove any spaces from the input string.\n2. Use a stack to keep track of the indices where parentheses start and end.\n3. As we iterate through the string, use the stack to identify when a group of balanced parentheses is complete.\n4. Extract each group and add it to the result list.\n\nHere's the implementation:\n\n```python\nfrom typing import List",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmp2_3u9q91.py\", line 31\n    To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n                                                                                                                                        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+      "execution_time": 18.309258460998535,
+      "model": "qwen2.5-coder:3b"
+    },
+    {
+      "task_id": "HumanEval/2",
+      "passed": false,
+      "result": "File \"/tmp/tmp88c8ewn4.py\", line 32\n    ```python\n    ^\nSyntaxError: invalid syntax",
+      "completion": "```python",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmp88c8ewn4.py\", line 32\n    ```python\n    ^\nSyntaxError: invalid syntax",
+      "execution_time": 2.511683702468872,
+      "model": "qwen2.5-coder:3b"
+    },
+    {
+      "task_id": "HumanEval/3",
+      "passed": false,
+      "result": "File \"/tmp/tmpyl7sza6k.py\", line 33\n    Certainly! Below is the completed Python code for the `below_zero` function:\n             ^\nSyntaxError: invalid syntax",
+      "completion": "Certainly! Below is the completed Python code for the `below_zero` function:\n\n```python\nfrom typing import List",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpyl7sza6k.py\", line 33\n    Certainly! Below is the completed Python code for the `below_zero` function:\n             ^\nSyntaxError: invalid syntax",
+      "execution_time": 8.972999572753906,
+      "model": "qwen2.5-coder:3b"
+    },
+    {
+      "task_id": "HumanEval/4",
+      "passed": false,
+      "result": "File \"/tmp/tmpltxwkf_j.py\", line 33\n    ```python\n    ^\nSyntaxError: invalid syntax",
+      "completion": "```python\nfrom typing import List",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpltxwkf_j.py\", line 33\n    ```python\n    ^\nSyntaxError: invalid syntax",
+      "execution_time": 8.40898585319519,
+      "model": "qwen2.5-coder:3b"
+    }
+  ]
+}

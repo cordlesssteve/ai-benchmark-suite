@@ -1,0 +1,67 @@
+{
+  "model": "qwen2.5:0.5b",
+  "timestamp": 1759033844.7341695,
+  "strategy": "improved_prompts",
+  "total_problems": 8,
+  "passed": 0,
+  "score": 0.0,
+  "percentage": 0.0,
+  "results": [
+    {
+      "problem_id": "add",
+      "prompt": "# Code completion only:\ndef add(a, b):\n    return ",
+      "generated": "```python",
+      "expected": "a + b",
+      "passed": false
+    },
+    {
+      "problem_id": "even",
+      "prompt": "# Code completion only:\ndef is_even(n):\n    return n ",
+      "generated": "```python",
+      "expected": "% 2 == 0",
+      "passed": false
+    },
+    {
+      "problem_id": "max",
+      "prompt": "# Code completion only:\ndef max_three(a, b, c):\n    return ",
+      "generated": "```python",
+      "expected": "max(",
+      "passed": false
+    },
+    {
+      "problem_id": "reverse",
+      "prompt": "# Code completion only:\ndef reverse_string(s):\n    return s",
+      "generated": "```python",
+      "expected": "[::-1]",
+      "passed": false
+    },
+    {
+      "problem_id": "fibonacci",
+      "prompt": "# Code completion only:\ndef fib(n):\n    if n <= 1: return n\n    return fib(n-1) + ",
+      "generated": "```python",
+      "expected": "fib(n-2)",
+      "passed": false
+    },
+    {
+      "problem_id": "factorial",
+      "prompt": "# Code completion only:\ndef factorial(n):\n    if n == 0: return 1\n    return n * ",
+      "generated": "```python",
+      "expected": "factorial(n-1)",
+      "passed": false
+    },
+    {
+      "problem_id": "sum_list",
+      "prompt": "# Code completion only:\ndef sum_list(lst):\n    return ",
+      "generated": "```python",
+      "expected": "sum(lst)",
+      "passed": false
+    },
+    {
+      "problem_id": "count_vowels",
+      "prompt": "# Code completion only:\ndef count_vowels(text):\n    vowels = 'aeiou'\n    return sum(1 for c in text.lower() if c in ",
+      "generated": "```python",
+      "expected": "vowels",
+      "passed": false
+    }
+  ]
+}

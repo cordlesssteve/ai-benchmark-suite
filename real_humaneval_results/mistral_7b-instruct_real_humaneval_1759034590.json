@@ -1,0 +1,65 @@
+{
+  "model": "mistral:7b-instruct",
+  "evaluation_type": "humaneval_real",
+  "timestamp": 1759034590.526987,
+  "dataset_source": "openai_humaneval",
+  "total_problems": 5,
+  "passed": 0,
+  "failed": 5,
+  "pass_at_1": 0.0,
+  "percentage": 0.0,
+  "total_time": 175.9403693675995,
+  "avg_time_per_problem": 35.1880738735199,
+  "results": [
+    {
+      "task_id": "HumanEval/0",
+      "passed": false,
+      "result": "File \"/tmp/tmpi1uh1z12.py\", line 32\n    Here's a possible implementation of the `has_close_elements` function:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+      "completion": "Here's a possible implementation of the `has_close_elements` function:\n\n```python",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpi1uh1z12.py\", line 32\n    Here's a possible implementation of the `has_close_elements` function:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+      "execution_time": 119.25519108772278,
+      "model": "mistral:7b-instruct"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "passed": false,
+      "result": "File \"/tmp/tmp8yi_q1tf.py\", line 31\n    Here's a Python function that uses a recursive approach to solve the problem:\n        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+      "completion": "Here's a Python function that uses a recursive approach to solve the problem:\n\n```python",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmp8yi_q1tf.py\", line 31\n    Here's a Python function that uses a recursive approach to solve the problem:\n        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+      "execution_time": 12.681594371795654,
+      "model": "mistral:7b-instruct"
+    },
+    {
+      "task_id": "HumanEval/2",
+      "passed": false,
+      "result": "File \"/tmp/tmp70an_lq4.py\", line 32\n    Here's a simple implementation of the `truncate_number` function in Python:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+      "completion": "Here's a simple implementation of the `truncate_number` function in Python:\n\n```python",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmp70an_lq4.py\", line 32\n    Here's a simple implementation of the `truncate_number` function in Python:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+      "execution_time": 13.024044275283813,
+      "model": "mistral:7b-instruct"
+    },
+    {
+      "task_id": "HumanEval/3",
+      "passed": false,
+      "result": "File \"/tmp/tmpq82ictpv.py\", line 33\n    To solve the problem, you can keep a running total of the operations and check if it ever goes below zero. Here's the completed code:\n                                                                                                                   ^\nSyntaxError: unterminated string literal (detected at line 33)",
+      "completion": "To solve the problem, you can keep a running total of the operations and check if it ever goes below zero. Here's the completed code:\n\n```python\nfrom typing import List",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpq82ictpv.py\", line 33\n    To solve the problem, you can keep a running total of the operations and check if it ever goes below zero. Here's the completed code:\n                                                                                                                   ^\nSyntaxError: unterminated string literal (detected at line 33)",
+      "execution_time": 13.159487009048462,
+      "model": "mistral:7b-instruct"
+    },
+    {
+      "task_id": "HumanEval/4",
+      "passed": false,
+      "result": "File \"/tmp/tmpci2ff2f9.py\", line 33\n    To calculate the Mean Absolute Deviation (MAD), you first need to find the mean of the given list and then calculate the absolute difference between each number and the mean. After that, you sum up all these differences and divide by the length of the list to get the average. Here's the completed code:\n                                                                                                                                                                                                                                                                                             ^\nSyntaxError: unterminated string literal (detected at line 33)",
+      "completion": "To calculate the Mean Absolute Deviation (MAD), you first need to find the mean of the given list and then calculate the absolute difference between each number and the mean. After that, you sum up all these differences and divide by the length of the list to get the average. Here's the completed code:\n\n```python\nfrom typing import List\nimport statistics",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpci2ff2f9.py\", line 33\n    To calculate the Mean Absolute Deviation (MAD), you first need to find the mean of the given list and then calculate the absolute difference between each number and the mean. After that, you sum up all these differences and divide by the length of the list to get the average. Here's the completed code:\n                                                                                                                                                                                                                                                                                             ^\nSyntaxError: unterminated string literal (detected at line 33)",
+      "execution_time": 17.82005262374878,
+      "model": "mistral:7b-instruct"
+    }
+  ]
+}

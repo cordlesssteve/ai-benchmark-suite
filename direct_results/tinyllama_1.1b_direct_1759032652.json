@@ -1,0 +1,52 @@
+{
+  "model": "tinyllama:1.1b",
+  "timestamp": 1759032652.586645,
+  "total_problems": 5,
+  "passed": 0,
+  "score": 0.0,
+  "percentage": 0.0,
+  "total_time": 3.5625040531158447,
+  "avg_time": 0.712500810623169,
+  "results": [
+    {
+      "problem_id": "add",
+      "prompt": "def add(a, b):\n    return ",
+      "generated": "",
+      "expected": "a + b",
+      "passed": false,
+      "execution_time": 2.825605869293213
+    },
+    {
+      "problem_id": "even",
+      "prompt": "def is_even(n):\n    return n ",
+      "generated": "Yes, you can",
+      "expected": "% 2 == 0",
+      "passed": false,
+      "execution_time": 0.13110733032226562
+    },
+    {
+      "problem_id": "max3",
+      "prompt": "def max_three(a, b, c):\n    return ",
+      "generated": "`max_three` is a built-in Python function that takes three arguments and returns the maximum",
+      "expected": "max(",
+      "passed": false,
+      "execution_time": 0.23347115516662598
+    },
+    {
+      "problem_id": "reverse",
+      "prompt": "def reverse_string(s):\n    return s",
+      "generated": "```python",
+      "expected": "[::-1]",
+      "passed": false,
+      "execution_time": 0.09948587417602539
+    },
+    {
+      "problem_id": "fib",
+      "prompt": "def fib(n):\n    if n <= 1: return n\n    return fib(n-1) + ",
+      "generated": "The `fib` function takes an integer `n` as input and returns the nth F",
+      "expected": "fib(n-2)",
+      "passed": false,
+      "execution_time": 0.27283382415771484
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "model": "phi3.5:latest",
+  "timestamp": 1759033822.9684718,
+  "strategy": "improved_prompts",
+  "total_problems": 8,
+  "passed": 8,
+  "score": 1.0,
+  "percentage": 100.0,
+  "results": [
+    {
+      "problem_id": "add",
+      "prompt": "# Code completion only:\ndef add(a, b):\n    return ",
+      "generated": "return a + b",
+      "expected": "a + b",
+      "passed": true
+    },
+    {
+      "problem_id": "even",
+      "prompt": "# Code completion only:\ndef is_even(n):\n    return n ",
+      "generated": "return n % 2 == 0",
+      "expected": "% 2 == 0",
+      "passed": true
+    },
+    {
+      "problem_id": "max",
+      "prompt": "# Code completion only:\ndef max_three(a, b, c):\n    return ",
+      "generated": "return max(a, b, c)",
+      "expected": "max(",
+      "passed": true
+    },
+    {
+      "problem_id": "reverse",
+      "prompt": "# Code completion only:\ndef reverse_string(s):\n    return s",
+      "generated": "return s[::-1]",
+      "expected": "[::-1]",
+      "passed": true
+    },
+    {
+      "problem_id": "fibonacci",
+      "prompt": "# Code completion only:\ndef fib(n):\n    if n <= 1: return n\n    return fib(n-1) + ",
+      "generated": "return fib(n-2)",
+      "expected": "fib(n-2)",
+      "passed": true
+    },
+    {
+      "problem_id": "factorial",
+      "prompt": "# Code completion only:\ndef factorial(n):\n    if n == 0: return 1\n    return n * ",
+      "generated": "return factorial(n-1)",
+      "expected": "factorial(n-1)",
+      "passed": true
+    },
+    {
+      "problem_id": "sum_list",
+      "prompt": "# Code completion only:\ndef sum_list(lst):\n    return ",
+      "generated": "return sum(lst)",
+      "expected": "sum(lst)",
+      "passed": true
+    },
+    {
+      "problem_id": "count_vowels",
+      "prompt": "# Code completion only:\ndef count_vowels(text):\n    vowels = 'aeiou'\n    return sum(1 for c in text.lower() if c in ",
+      "generated": "return sum(1 for c in text.lower() if c in vowels",
+      "expected": "vowels",
+      "passed": true
+    }
+  ]
+}

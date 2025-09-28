@@ -1,0 +1,52 @@
+{
+  "model": "qwen2.5-coder:3b",
+  "timestamp": 1759032684.2374227,
+  "total_problems": 5,
+  "passed": 0,
+  "score": 0.0,
+  "percentage": 0.0,
+  "total_time": 16.958001136779785,
+  "avg_time": 3.391600227355957,
+  "results": [
+    {
+      "problem_id": "add",
+      "prompt": "def add(a, b):\n    return ",
+      "generated": "It looks like you've started writing a function in Python to add two numbers, but the code is",
+      "expected": "a + b",
+      "passed": false,
+      "execution_time": 14.526305913925171
+    },
+    {
+      "problem_id": "even",
+      "prompt": "def is_even(n):\n    return n ",
+      "generated": "It looks like there's an issue with the function `is_even` you provided. The function is",
+      "expected": "% 2 == 0",
+      "passed": false,
+      "execution_time": 0.6397440433502197
+    },
+    {
+      "problem_id": "max3",
+      "prompt": "def max_three(a, b, c):\n    return ",
+      "generated": "Certainly! Below is the completed Python function `max_three` that returns the maximum of three numbers:",
+      "expected": "max(",
+      "passed": false,
+      "execution_time": 0.5799369812011719
+    },
+    {
+      "problem_id": "reverse",
+      "prompt": "def reverse_string(s):\n    return s",
+      "generated": "The function `reverse_string` you provided is already correctly implemented to return the input string as it is",
+      "expected": "[::-1]",
+      "passed": false,
+      "execution_time": 0.5990610122680664
+    },
+    {
+      "problem_id": "fib",
+      "prompt": "def fib(n):\n    if n <= 1: return n\n    return fib(n-1) + ",
+      "generated": "It looks like you've started writing a function to calculate the Fibonacci sequence, but there's a small",
+      "expected": "fib(n-2)",
+      "passed": false,
+      "execution_time": 0.6129531860351562
+    }
+  ]
+}

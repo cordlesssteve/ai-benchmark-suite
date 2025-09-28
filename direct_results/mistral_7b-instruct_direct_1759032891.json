@@ -1,0 +1,50 @@
+{
+  "model": "mistral:7b-instruct",
+  "timestamp": 1759032891.9755032,
+  "total_problems": 5,
+  "passed": 1,
+  "score": 0.2,
+  "percentage": 20.0,
+  "total_time": 49.89390730857849,
+  "avg_time": 9.978781461715698,
+  "results": [
+    {
+      "problem_id": "add",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)",
+      "passed": false,
+      "execution_time": 31.451612949371338
+    },
+    {
+      "problem_id": "even",
+      "prompt": "def is_even(n):\n    return n ",
+      "generated": "It seems like you're trying to write a function in Python that checks if a number is even",
+      "expected": "% 2 == 0",
+      "passed": false,
+      "execution_time": 14.867127418518066
+    },
+    {
+      "problem_id": "max3",
+      "prompt": "def max_three(a, b, c):\n    return ",
+      "generated": "The function `max_three(a, b, c)` is written in Python and it",
+      "expected": "max(",
+      "passed": false,
+      "execution_time": 1.130631685256958
+    },
+    {
+      "problem_id": "reverse",
+      "prompt": "def reverse_string(s):\n    return s",
+      "generated": "This function simply returns the input string `s` as it is, without reversing it. If",
+      "expected": "[::-1]",
+      "passed": false,
+      "execution_time": 1.0799846649169922
+    },
+    {
+      "problem_id": "fib",
+      "prompt": "def fib(n):\n    if n <= 1: return n\n    return fib(n-1) + ",
+      "generated": "fib(n-2) + the current implementation of your function has a small error. It should",
+      "expected": "fib(n-2)",
+      "passed": true,
+      "execution_time": 1.3645505905151367
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "model": "tinyllama:1.1b",
+  "timestamp": 1759032569.739541,
+  "total_problems": 8,
+  "results": [
+    {
+      "success": true,
+      "generated": "The `add` function in Python is a built-in function that adds two numbers together. Here's how it works:",
+      "passed": false,
+      "evaluation_time": 0.27146643,
+      "problem_id": "simple_add",
+      "description": "Simple addition",
+      "prompt": "def add(a, b):\n    \"\"\"\n    Add two numbers a and b.\n    >>> add(1, 2)\n    3\n    \"\"\"\n    return",
+      "expected": "a + b",
+      "execution_time": 5.726764440536499
+    },
+    {
+      "success": true,
+      "generated": "The `is_even` function in Python checks whether the given number `n` is even. The function takes a single parameter `n`, which represents the input number to check. It returns a boolean value indicating whether `n` is even or not.",
+      "passed": false,
+      "evaluation_time": 0.494421475,
+      "problem_id": "is_even",
+      "description": "Check if number is even",
+      "prompt": "def is_even(n):\n    \"\"\"\n    Check whether a number n is even.\n    >>> is_even(4)\n    True\n    >>> is_even(5)\n    False\n    \"\"\"\n    return",
+      "expected": "% 2 == 0",
+      "execution_time": 0.5558314323425293
+    },
+    {
+      "success": true,
+      "generated": "The `max_of_three` function takes three arguments (`a`, `b`, and `c`) and returns the maximum of these numbers. Here's how it works:",
+      "passed": false,
+      "evaluation_time": 0.355206477,
+      "problem_id": "max_three",
+      "description": "Maximum of three numbers",
+      "prompt": "def max_of_three(a, b, c):\n    \"\"\"\n    Return the maximum of three numbers.\n    >>> max_of_three(1, 2, 3)\n    3\n    \"\"\"\n    return",
+      "expected": "max(",
+      "execution_time": 0.4281156063079834
+    },
+    {
+      "success": true,
+      "generated": "The `reverse_string` function in Python takes a string as input and returns its reversed version. Here's how it works:",
+      "passed": false,
+      "evaluation_time": 0.280011082,
+      "problem_id": "reverse_string",
+      "description": "String reversal",
+      "prompt": "def reverse_string(s):\n    \"\"\"\n    Reverse a string.\n    >>> reverse_string('hello')\n    'olleh'\n    \"\"\"\n    return",
+      "expected": "[::-1]",
+      "execution_time": 0.3433806896209717
+    },
+    {
+      "success": true,
+      "generated": "In the above function, the line `n = 0` checks if `n` is equal to 0 (i.e., it's zero). If this condition is true, then the function returns 1 since 0! = 1. Otherwise, the function computes the factorial of `n`, which is the product of all positive integers up to and including `n`.",
+      "passed": false,
+      "evaluation_time": 0.705841389,
+      "problem_id": "factorial",
+      "description": "Recursive factorial",
+      "prompt": "def factorial(n):\n    \"\"\"\n    Compute factorial of n.\n    >>> factorial(5)\n    120\n    \"\"\"\n    if n == 0:\n        return 1\n    return",
+      "expected": "n * factorial(n-1)",
+      "execution_time": 0.7622776031494141
+    },
+    {
+      "success": true,
+      "generated": "The `fibonaci` function takes an integer `n` as input and returns the n-th Fibonaci number. The function uses a recursive approach to calculate the Fibonaci numbers, starting from 0 (the first Fibonaci number) and proceeding to the n-th Fibonaci number.",
+      "passed": false,
+      "evaluation_time": 0.66170672,
+      "problem_id": "fibonacci",
+      "description": "Fibonacci sequence",
+      "prompt": "def fibonacci(n):\n    \"\"\"\n    Return the n-th Fibonacci number.\n    >>> fibonacci(6)\n    8\n    \"\"\"\n    if n <= 1:\n        return n\n    return",
+      "expected": "fibonacci(n-1) + fibonacci(n-2)",
+      "execution_time": 0.7082221508026123
+    },
+    {
+      "success": true,
+      "generated": "The `sum_list` function takes a list of numbers as its only argument and returns the sum of all elements in the list. Here's how it works:",
+      "passed": true,
+      "evaluation_time": 0.349603112,
+      "problem_id": "list_sum",
+      "description": "Sum of list elements",
+      "prompt": "def sum_list(numbers):\n    \"\"\"\n    Return the sum of a list of numbers.\n    >>> sum_list([1, 2, 3, 4])\n    10\n    \"\"\"\n    total = 0\n    for num in numbers:\n        total +=",
+      "expected": "num",
+      "execution_time": 0.39957761764526367
+    },
+    {
+      "success": true,
+      "generated": "In the given function `count_vowel`, we define a list of characters called `vowel` that contains all vowel letters (i.e., 'a', 'e', 'i', 'o', and 'u'). We then loop through each character in the string `text` using the `for` loop, and check if it is a vowel letter by comparing it to the characters in `vowel`. If a match is found, we increment the count variable (`count`) by 1. Finally, we return the total number of vowel letters in `text`.",
+      "passed": false,
+      "evaluation_time": 1.059311781,
+      "problem_id": "count_vowels",
+      "description": "Count vowels in text",
+      "prompt": "def count_vowels(text):\n    \"\"\"\n    Count vowels in a string.\n    >>> count_vowels('hello')\n    2\n    \"\"\"\n    vowels = 'aeiou'\n    count = 0\n    for char in text.lower():\n        if char in",
+      "expected": "vowels",
+      "execution_time": 1.120333194732666
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "total": 8,
+    "score": 0.125,
+    "percentage": 12.5,
+    "total_time": 10.04450273513794,
+    "avg_time_per_problem": 1.2555628418922424
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "model": "phi3:latest",
+  "timestamp": 1759032907.544466,
+  "total_problems": 5,
+  "passed": 0,
+  "score": 0.0,
+  "percentage": 0.0,
+  "total_time": 15.568413734436035,
+  "avg_time": 3.113682746887207,
+  "results": [
+    {
+      "problem_id": "add",
+      "prompt": "def add(a, b):\n    return ",
+      "generated": "To complete the function `add` that takes two parameters and returns their sum, you can simply write",
+      "expected": "a + b",
+      "passed": false,
+      "execution_time": 14.05953049659729
+    },
+    {
+      "problem_id": "even",
+      "prompt": "def is_even(n):\n    return n ",
+      "generated": "To correct the function, you should check if `n` is even by using the modulo operator",
+      "expected": "% 2 == 0",
+      "passed": false,
+      "execution_time": 0.44750404357910156
+    },
+    {
+      "problem_id": "max3",
+      "prompt": "def max_three(a, b, c):\n    return ",
+      "generated": "To find the maximum of three numbers in Python and handle cases where two or more values are equal (",
+      "expected": "max(",
+      "passed": false,
+      "execution_time": 0.45253753662109375
+    },
+    {
+      "problem_id": "reverse",
+      "prompt": "def reverse_string(s):\n    return s",
+      "generated": "",
+      "expected": "[::-1]",
+      "passed": false,
+      "execution_time": 0.1265888214111328
+    },
+    {
+      "problem_id": "fib",
+      "prompt": "def fib(n):\n    if n <= 1: return n\n    return fib(n-1) + ",
+      "generated": "To complete the recursive Fibonacci function, you should call `fib(n-2",
+      "expected": "fib(n-2)",
+      "passed": false,
+      "execution_time": 0.482252836227417
+    }
+  ]
+}

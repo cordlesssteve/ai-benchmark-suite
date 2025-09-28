@@ -1,0 +1,197 @@
+[
+  {
+    "model": "phi3.5:latest",
+    "evaluation_type": "humaneval_real",
+    "timestamp": 1759034414.5845423,
+    "dataset_source": "openai_humaneval",
+    "total_problems": 5,
+    "passed": 0,
+    "failed": 5,
+    "pass_at_1": 0.0,
+    "percentage": 0.0,
+    "total_time": 13.479494094848633,
+    "avg_time_per_problem": 2.6958988189697264,
+    "results": [
+      {
+        "task_id": "HumanEval/0",
+        "passed": false,
+        "result": "FAILED: AssertionError:",
+        "completion": "from typing import List",
+        "stdout": "FAILED: AssertionError:",
+        "stderr": "",
+        "execution_time": 2.229870080947876,
+        "model": "phi3.5:latest"
+      },
+      {
+        "task_id": "HumanEval/1",
+        "passed": false,
+        "result": "FAILED: AssertionError:",
+        "completion": "from typing import List\nimport re",
+        "stdout": "FAILED: AssertionError:",
+        "stderr": "",
+        "execution_time": 1.0609195232391357,
+        "model": "phi3.5:latest"
+      },
+      {
+        "task_id": "HumanEval/2",
+        "passed": false,
+        "result": "File \"/tmp/tmpyoifqtyd.py\", line 39\n    print(truncate extricate_number(3.5))   # Expected Output: 0.5\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?",
+        "completion": "def truncate_number(number: float) -> float:\n    integer_part = int(number) # Extracting the largest integer smaller than given number\n    decimal_part = number - integer_part # Calculating leftover part (decimal portion of the number)\n    \n    return round(decimal_part, 1) # Returning rounded off to one place after the decimal point for precision up to two places as requested in your example output.\n\n# Test cases:\nprint(truncate extricate_number(3.5))   # Expected Output: 0.5",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpyoifqtyd.py\", line 39\n    print(truncate extricate_number(3.5))   # Expected Output: 0.5\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?",
+        "execution_time": 3.7202916145324707,
+        "model": "phi3.5:latest"
+      },
+      {
+        "task_id": "HumanEval/3",
+        "passed": false,
+        "result": "FAILED: AssertionError:",
+        "completion": "from typing import List",
+        "stdout": "FAILED: AssertionError:",
+        "stderr": "",
+        "execution_time": 1.0526769161224365,
+        "model": "phi3.5:latest"
+      },
+      {
+        "task_id": "HumanEval/4",
+        "passed": false,
+        "result": "File \"/tmp/tmpu35udcni.py\", line 33\n    Here's the completed Python code with added comments for clarity:\n        ^\nSyntaxError: unterminated string literal (detected at line 33)",
+        "completion": "Here's the completed Python code with added comments for clarity:\n\n```python\nfrom typing import List",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpu35udcni.py\", line 33\n    Here's the completed Python code with added comments for clarity:\n        ^\nSyntaxError: unterminated string literal (detected at line 33)",
+        "execution_time": 5.415735960006714,
+        "model": "phi3.5:latest"
+      }
+    ]
+  },
+  {
+    "model": "mistral:7b-instruct",
+    "evaluation_type": "humaneval_real",
+    "timestamp": 1759034590.526987,
+    "dataset_source": "openai_humaneval",
+    "total_problems": 5,
+    "passed": 0,
+    "failed": 5,
+    "pass_at_1": 0.0,
+    "percentage": 0.0,
+    "total_time": 175.9403693675995,
+    "avg_time_per_problem": 35.1880738735199,
+    "results": [
+      {
+        "task_id": "HumanEval/0",
+        "passed": false,
+        "result": "File \"/tmp/tmpi1uh1z12.py\", line 32\n    Here's a possible implementation of the `has_close_elements` function:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+        "completion": "Here's a possible implementation of the `has_close_elements` function:\n\n```python",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpi1uh1z12.py\", line 32\n    Here's a possible implementation of the `has_close_elements` function:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+        "execution_time": 119.25519108772278,
+        "model": "mistral:7b-instruct"
+      },
+      {
+        "task_id": "HumanEval/1",
+        "passed": false,
+        "result": "File \"/tmp/tmp8yi_q1tf.py\", line 31\n    Here's a Python function that uses a recursive approach to solve the problem:\n        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+        "completion": "Here's a Python function that uses a recursive approach to solve the problem:\n\n```python",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmp8yi_q1tf.py\", line 31\n    Here's a Python function that uses a recursive approach to solve the problem:\n        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+        "execution_time": 12.681594371795654,
+        "model": "mistral:7b-instruct"
+      },
+      {
+        "task_id": "HumanEval/2",
+        "passed": false,
+        "result": "File \"/tmp/tmp70an_lq4.py\", line 32\n    Here's a simple implementation of the `truncate_number` function in Python:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+        "completion": "Here's a simple implementation of the `truncate_number` function in Python:\n\n```python",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmp70an_lq4.py\", line 32\n    Here's a simple implementation of the `truncate_number` function in Python:\n        ^\nSyntaxError: unterminated string literal (detected at line 32)",
+        "execution_time": 13.024044275283813,
+        "model": "mistral:7b-instruct"
+      },
+      {
+        "task_id": "HumanEval/3",
+        "passed": false,
+        "result": "File \"/tmp/tmpq82ictpv.py\", line 33\n    To solve the problem, you can keep a running total of the operations and check if it ever goes below zero. Here's the completed code:\n                                                                                                                   ^\nSyntaxError: unterminated string literal (detected at line 33)",
+        "completion": "To solve the problem, you can keep a running total of the operations and check if it ever goes below zero. Here's the completed code:\n\n```python\nfrom typing import List",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpq82ictpv.py\", line 33\n    To solve the problem, you can keep a running total of the operations and check if it ever goes below zero. Here's the completed code:\n                                                                                                                   ^\nSyntaxError: unterminated string literal (detected at line 33)",
+        "execution_time": 13.159487009048462,
+        "model": "mistral:7b-instruct"
+      },
+      {
+        "task_id": "HumanEval/4",
+        "passed": false,
+        "result": "File \"/tmp/tmpci2ff2f9.py\", line 33\n    To calculate the Mean Absolute Deviation (MAD), you first need to find the mean of the given list and then calculate the absolute difference between each number and the mean. After that, you sum up all these differences and divide by the length of the list to get the average. Here's the completed code:\n                                                                                                                                                                                                                                                                                             ^\nSyntaxError: unterminated string literal (detected at line 33)",
+        "completion": "To calculate the Mean Absolute Deviation (MAD), you first need to find the mean of the given list and then calculate the absolute difference between each number and the mean. After that, you sum up all these differences and divide by the length of the list to get the average. Here's the completed code:\n\n```python\nfrom typing import List\nimport statistics",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpci2ff2f9.py\", line 33\n    To calculate the Mean Absolute Deviation (MAD), you first need to find the mean of the given list and then calculate the absolute difference between each number and the mean. After that, you sum up all these differences and divide by the length of the list to get the average. Here's the completed code:\n                                                                                                                                                                                                                                                                                             ^\nSyntaxError: unterminated string literal (detected at line 33)",
+        "execution_time": 17.82005262374878,
+        "model": "mistral:7b-instruct"
+      }
+    ]
+  },
+  {
+    "model": "qwen2.5-coder:3b",
+    "evaluation_type": "humaneval_real",
+    "timestamp": 1759034659.2070954,
+    "dataset_source": "openai_humaneval",
+    "total_problems": 5,
+    "passed": 0,
+    "failed": 5,
+    "pass_at_1": 0.0,
+    "percentage": 0.0,
+    "total_time": 68.67917346954346,
+    "avg_time_per_problem": 13.735834693908691,
+    "results": [
+      {
+        "task_id": "HumanEval/0",
+        "passed": false,
+        "result": "File \"/tmp/tmp7_xvxpgg.py\", line 32\n    Certainly! Below is the completed Python code for the `has_close_elements` function with type annotations and a docstring:\n             ^\nSyntaxError: invalid syntax",
+        "completion": "Certainly! Below is the completed Python code for the `has_close_elements` function with type annotations and a docstring:\n\n```python\nfrom typing import List",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmp7_xvxpgg.py\", line 32\n    Certainly! Below is the completed Python code for the `has_close_elements` function with type annotations and a docstring:\n             ^\nSyntaxError: invalid syntax",
+        "execution_time": 30.476245880126953,
+        "model": "qwen2.5-coder:3b"
+      },
+      {
+        "task_id": "HumanEval/1",
+        "passed": false,
+        "result": "File \"/tmp/tmp2_3u9q91.py\", line 31\n    To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n                                                                                                                                        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+        "completion": "To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n\n1. Remove any spaces from the input string.\n2. Use a stack to keep track of the indices where parentheses start and end.\n3. As we iterate through the string, use the stack to identify when a group of balanced parentheses is complete.\n4. Extract each group and add it to the result list.\n\nHere's the implementation:\n\n```python\nfrom typing import List",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmp2_3u9q91.py\", line 31\n    To complete the `separate_paren_groups` function, we need to parse the input string and extract groups of balanced parentheses. Here's a step-by-step approach to achieve this:\n                                                                                                                                        ^\nSyntaxError: unterminated string literal (detected at line 31)",
+        "execution_time": 18.309258460998535,
+        "model": "qwen2.5-coder:3b"
+      },
+      {
+        "task_id": "HumanEval/2",
+        "passed": false,
+        "result": "File \"/tmp/tmp88c8ewn4.py\", line 32\n    ```python\n    ^\nSyntaxError: invalid syntax",
+        "completion": "```python",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmp88c8ewn4.py\", line 32\n    ```python\n    ^\nSyntaxError: invalid syntax",
+        "execution_time": 2.511683702468872,
+        "model": "qwen2.5-coder:3b"
+      },
+      {
+        "task_id": "HumanEval/3",
+        "passed": false,
+        "result": "File \"/tmp/tmpyl7sza6k.py\", line 33\n    Certainly! Below is the completed Python code for the `below_zero` function:\n             ^\nSyntaxError: invalid syntax",
+        "completion": "Certainly! Below is the completed Python code for the `below_zero` function:\n\n```python\nfrom typing import List",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpyl7sza6k.py\", line 33\n    Certainly! Below is the completed Python code for the `below_zero` function:\n             ^\nSyntaxError: invalid syntax",
+        "execution_time": 8.972999572753906,
+        "model": "qwen2.5-coder:3b"
+      },
+      {
+        "task_id": "HumanEval/4",
+        "passed": false,
+        "result": "File \"/tmp/tmpltxwkf_j.py\", line 33\n    ```python\n    ^\nSyntaxError: invalid syntax",
+        "completion": "```python\nfrom typing import List",
+        "stdout": "",
+        "stderr": "File \"/tmp/tmpltxwkf_j.py\", line 33\n    ```python\n    ^\nSyntaxError: invalid syntax",
+        "execution_time": 8.40898585319519,
+        "model": "qwen2.5-coder:3b"
+      }
+    ]
+  }
+]

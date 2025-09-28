@@ -1,0 +1,51 @@
+[
+  {
+    "strategy": "Direct",
+    "prompt": "def add(a, b):\n    return ",
+    "generated": "It seems like you've started writing a Python",
+    "passed": false,
+    "contains_expected": false
+  },
+  {
+    "strategy": "Code-only instruction",
+    "prompt": "# Complete this code with minimal output, no explanation:\ndef add(a, b):\n    return ",
+    "generated": "Sure! Here's the completed code for a simple function that adds two numbers:",
+    "passed": false,
+    "contains_expected": false
+  },
+  {
+    "strategy": "System instruction",
+    "prompt": "You are a code completion engine. Complete only the missing code:\ndef add(a, b):\n    return ",
+    "generated": "a + b",
+    "passed": true,
+    "contains_expected": true
+  },
+  {
+    "strategy": "Few-shot example",
+    "prompt": "Complete the code:\n\ndef multiply(x, y):\n    return x * y\n\ndef add(a, b):\n    return ",
+    "generated": "a + b",
+    "passed": true,
+    "contains_expected": true
+  },
+  {
+    "strategy": "Fill-in-middle style",
+    "prompt": "<|fim_prefix|>def add(a, b):\n    return <|fim_suffix|>\n\n# Test\nprint(add(2, 3))<|fim_middle|>",
+    "generated": "To make this code workable in Python, I",
+    "passed": false,
+    "contains_expected": false
+  },
+  {
+    "strategy": "Terse instruction",
+    "prompt": "CODE ONLY:\ndef add(a, b):\n    return ",
+    "generated": "Here is the complete code for a simple",
+    "passed": false,
+    "contains_expected": false
+  },
+  {
+    "strategy": "Continue format",
+    "prompt": "def add(a, b):\n    return # CONTINUE:",
+    "generated": "To complete the function `add(a, b)`",
+    "passed": false,
+    "contains_expected": false
+  }
+]

@@ -1,0 +1,81 @@
+{
+  "model": "phi3.5:latest",
+  "timestamp": 1759035158.5571034,
+  "test_cases": [
+    {
+      "test_name": "simple_addition",
+      "test_code": "def add(a, b):\n    return ",
+      "expected": "a + b",
+      "results": [
+        {
+          "strategy": "silent_generator",
+          "type": "system_prompt",
+          "generated": "return a + b",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.3349008560180664,
+          "success": true
+        }
+      ]
+    },
+    {
+      "test_name": "even_check",
+      "test_code": "def is_even(n):\n    return n ",
+      "expected": "% 2 == 0",
+      "results": [
+        {
+          "strategy": "code_engine",
+          "type": "system_prompt",
+          "generated": "return n % 2 == 0",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.38815951347351074,
+          "success": true
+        },
+        {
+          "strategy": "silent_generator",
+          "type": "system_prompt",
+          "generated": "return False",
+          "contains_expected": false,
+          "is_conversational": false,
+          "execution_time": 0.2359626293182373,
+          "success": false
+        },
+        {
+          "strategy": "negative_prompt",
+          "type": "system_prompt",
+          "generated": "return n % 2 == 0",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.34540724754333496,
+          "success": true
+        }
+      ]
+    },
+    {
+      "test_name": "max_function",
+      "test_code": "def max_three(a, b, c):\n    return ",
+      "expected": "max(",
+      "results": [
+        {
+          "strategy": "silent_generator",
+          "type": "system_prompt",
+          "generated": "return max(a, b, c)",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.33039355278015137,
+          "success": true
+        },
+        {
+          "strategy": "negative_prompt",
+          "type": "system_prompt",
+          "generated": "max(a, b, c)",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.35544776916503906,
+          "success": true
+        }
+      ]
+    }
+  ]
+}

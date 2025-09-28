@@ -1,0 +1,189 @@
+{
+  "model": "mistral:7b-instruct",
+  "timestamp": 1759035168.8946238,
+  "test_cases": [
+    {
+      "test_name": "simple_addition",
+      "test_code": "def add(a, b):\n    return ",
+      "expected": "a + b",
+      "results": [
+        {
+          "strategy": "code_engine",
+          "type": "system_prompt",
+          "generated": "return a + b",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 20.23415184020996,
+          "success": true
+        },
+        {
+          "strategy": "silent_generator",
+          "type": "system_prompt",
+          "generated": "a + b",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.6677467823028564,
+          "success": true
+        },
+        {
+          "strategy": "format_constraint",
+          "type": "system_prompt",
+          "generated": "a + b",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.6583373546600342,
+          "success": true
+        },
+        {
+          "strategy": "role_based",
+          "type": "system_prompt",
+          "generated": "a + b",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.5586669445037842,
+          "success": true
+        },
+        {
+          "strategy": "direct_instruction",
+          "type": "instruction",
+          "generated": "The missing part of your code is the calculation that adds `a` and `b`. Here's the completed function:",
+          "contains_expected": false,
+          "is_conversational": true,
+          "execution_time": 1.5898334980010986,
+          "success": false
+        },
+        {
+          "strategy": "constrained_format",
+          "type": "instruction",
+          "generated": "a + b",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.6294608116149902,
+          "success": true
+        }
+      ]
+    },
+    {
+      "test_name": "even_check",
+      "test_code": "def is_even(n):\n    return n ",
+      "expected": "% 2 == 0",
+      "results": [
+        {
+          "strategy": "deterministic",
+          "type": "system_prompt",
+          "generated": "%%python",
+          "contains_expected": false,
+          "is_conversational": false,
+          "execution_time": 0.5983872413635254,
+          "success": false
+        },
+        {
+          "strategy": "role_based",
+          "type": "system_prompt",
+          "generated": "To make the function check if a number is even, you can use the modulus operator (`%`) to find the remainder of dividing by 2. If the remainder is 0, then the number is even.",
+          "contains_expected": false,
+          "is_conversational": false,
+          "execution_time": 2.679117202758789,
+          "success": false
+        },
+        {
+          "strategy": "direct_instruction",
+          "type": "instruction",
+          "generated": "To make the function check if a number is even, you can modify the function as follows:",
+          "contains_expected": false,
+          "is_conversational": false,
+          "execution_time": 1.351966142654419,
+          "success": false
+        },
+        {
+          "strategy": "constrained_format",
+          "type": "instruction",
+          "generated": "To make the function check if a number is even, you can modify the code as follows:",
+          "contains_expected": false,
+          "is_conversational": false,
+          "execution_time": 1.4601523876190186,
+          "success": false
+        }
+      ]
+    },
+    {
+      "test_name": "max_function",
+      "test_code": "def max_three(a, b, c):\n    return ",
+      "expected": "max(",
+      "results": [
+        {
+          "strategy": "code_engine",
+          "type": "system_prompt",
+          "generated": "max_three = lambda a, b, c: max(a, b, c) if isinstance(a, (int, float)) and isinstance(b, (int, float)) and isinstance(c, (int, float)) else",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 2.841510057449341,
+          "success": true
+        },
+        {
+          "strategy": "silent_generator",
+          "type": "system_prompt",
+          "generated": "max_value = max(a, b, c)\nreturn max_value",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 1.2026591300964355,
+          "success": true
+        },
+        {
+          "strategy": "deterministic",
+          "type": "system_prompt",
+          "generated": "max_three = lambda a, b, c: max(a, b, c)",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 1.3498942852020264,
+          "success": true
+        },
+        {
+          "strategy": "negative_prompt",
+          "type": "system_prompt",
+          "generated": "max(a, b, c)",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 0.771277666091919,
+          "success": true
+        },
+        {
+          "strategy": "format_constraint",
+          "type": "system_prompt",
+          "generated": "max_three = lambda a, b, c: max(a, b, c)",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 1.3852519989013672,
+          "success": true
+        },
+        {
+          "strategy": "role_based",
+          "type": "system_prompt",
+          "generated": "max_value = max(a, b, c)\nif max_value > (a + b + c) - max_value:\nreturn max_value * 3\nelse:\nreturn a + b + c",
+          "contains_expected": true,
+          "is_conversational": false,
+          "execution_time": 2.722325563430786,
+          "success": true
+        },
+        {
+          "strategy": "direct_instruction",
+          "type": "instruction",
+          "generated": "The completion of the function `max_three(a, b, c)` in Python that returns the maximum value among three numbers `a`, `b`, and `c` is as follows:",
+          "contains_expected": false,
+          "is_conversational": false,
+          "execution_time": 2.4436988830566406,
+          "success": false
+        },
+        {
+          "strategy": "constrained_format",
+          "type": "instruction",
+          "generated": "max_three(a, b, c) should return the maximum of the three numbers. Here's the completed code:",
+          "contains_expected": false,
+          "is_conversational": true,
+          "execution_time": 1.7507679462432861,
+          "success": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+version: '3.8'
+
+# AI Benchmark Suite - Production Deployment
+# Sprint 4.0: Enterprise Production Environment
+
+services:
+  # Main AI Benchmark Suite Application
+  ai-benchmark-suite:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: ai-benchmark-suite-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"    # API Server
+      - "8081:8081"    # Monitoring Dashboard
+    volumes:
+      - ./config:/app/config:ro
+      - ./models:/app/models:ro
+      - benchmark_results:/app/results
+      - benchmark_cache:/app/cache
+      - benchmark_logs:/app/logs
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - ENABLE_MONITORING=true
+      - ENABLE_CACHING=true
+      - ENABLE_PARALLEL_EXECUTION=true
+      - MAX_PARALLEL_WORKERS=8
+      - MAX_CONTAINERS=12
+      - CACHE_TTL_HOURS=48
+      - MEMORY_LIMIT_MB=8192
+    networks:
+      - benchmark_network
+    depends_on:
+      - redis
+      - postgres
+      - monitoring
+
+  # Redis for High-Performance Caching
+  redis:
+    image: redis:7.2-alpine
+    container_name: ai-benchmark-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 2gb --maxmemory-policy allkeys-lru
+    networks:
+      - benchmark_network
+
+  # PostgreSQL for Persistent Data Storage
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-benchmark-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    environment:
+      - POSTGRES_DB=ai_benchmark_suite
+      - POSTGRES_USER=benchmark_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-benchmark_secure_password_2024}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    networks:
+      - benchmark_network
+
+  # Prometheus for Metrics Collection
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: ai-benchmark-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=90d'
+      - '--web.enable-lifecycle'
+    networks:
+      - benchmark_network
+
+  # Grafana for Monitoring Dashboard
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: ai-benchmark-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin_secure_2024}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel
+    networks:
+      - benchmark_network
+    depends_on:
+      - prometheus
+
+  # Nginx Reverse Proxy and Load Balancer
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: ai-benchmark-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/sites:/etc/nginx/sites-available:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    networks:
+      - benchmark_network
+    depends_on:
+      - ai-benchmark-suite
+      - grafana
+
+  # Container Registry for Model Caching
+  registry:
+    image: registry:2.8.3
+    container_name: ai-benchmark-registry
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+    environment:
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
+    networks:
+      - benchmark_network
+
+  # Monitoring and Health Checks
+  monitoring:
+    build:
+      context: .
+      dockerfile: Dockerfile.monitoring
+    container_name: ai-benchmark-monitoring
+    restart: unless-stopped
+    volumes:
+      - benchmark_logs:/app/logs:ro
+      - ./config/monitoring:/app/config:ro
+    environment:
+      - MONITORING_INTERVAL=30
+      - ALERT_WEBHOOK_URL=${ALERT_WEBHOOK_URL}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+    networks:
+      - benchmark_network
+    depends_on:
+      - prometheus
+
+  # Log Aggregation
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: ai-benchmark-loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
+      - ./config/loki/loki.yml:/etc/loki/local-config.yaml:ro
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - benchmark_network
+
+  # Log Collection
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: ai-benchmark-promtail
+    restart: unless-stopped
+    volumes:
+      - benchmark_logs:/var/log/app:ro
+      - nginx_logs:/var/log/nginx:ro
+      - ./config/promtail/promtail.yml:/etc/promtail/config.yml:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - benchmark_network
+    depends_on:
+      - loki
+
+# Network Configuration
+networks:
+  benchmark_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Persistent Volume Configuration
+volumes:
+  # Application Data
+  benchmark_results:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RESULTS_PATH:-./data/results}
+
+  benchmark_cache:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${CACHE_PATH:-./data/cache}
+
+  benchmark_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${LOGS_PATH:-./data/logs}
+
+  # Database Data
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+  # Monitoring Data
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  loki_data:
+    driver: local
+
+  # Infrastructure Data
+  registry_data:
+    driver: local
+  nginx_logs:
+    driver: local

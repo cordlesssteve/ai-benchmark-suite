@@ -1,0 +1,42 @@
+{
+  "model": "codellama:13b-instruct",
+  "timestamp": 1759032841.9506514,
+  "total_problems": 5,
+  "passed": 0,
+  "score": 0.0,
+  "percentage": 0.0,
+  "total_time": 157.7117576599121,
+  "avg_time": 31.542351531982423,
+  "results": [
+    {
+      "problem_id": "add",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)",
+      "passed": false,
+      "execution_time": 31.444695472717285
+    },
+    {
+      "problem_id": "even",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)",
+      "passed": false,
+      "execution_time": 31.399811029434204
+    },
+    {
+      "problem_id": "max3",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)",
+      "passed": false,
+      "execution_time": 31.565191745758057
+    },
+    {
+      "problem_id": "reverse",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)",
+      "passed": false,
+      "execution_time": 31.3942289352417
+    },
+    {
+      "problem_id": "fib",
+      "error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)",
+      "passed": false,
+      "execution_time": 31.907830476760864
+    }
+  ]
+}

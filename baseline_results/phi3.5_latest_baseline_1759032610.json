@@ -1,0 +1,103 @@
+{
+  "model": "phi3.5:latest",
+  "timestamp": 1759032602.8826728,
+  "total_problems": 8,
+  "results": [
+    {
+      "success": true,
+      "generated": "Here is the completed Python function with proper addition logic:",
+      "passed": false,
+      "evaluation_time": 0.248988512,
+      "problem_id": "simple_add",
+      "description": "Simple addition",
+      "prompt": "def add(a, b):\n    \"\"\"\n    Add two numbers a and b.\n    >>> add(1, 2)\n    3\n    \"\"\"\n    return",
+      "expected": "a + b",
+      "execution_time": 4.2199952602386475
+    },
+    {
+      "success": true,
+      "generated": "```python",
+      "passed": false,
+      "evaluation_time": 0.29589171,
+      "problem_id": "is_even",
+      "description": "Check if number is even",
+      "prompt": "def is_even(n):\n    \"\"\"\n    Check whether a number n is even.\n    >>> is_even(4)\n    True\n    >>> is_even(5)\n    False\n    \"\"\"\n    return",
+      "expected": "% 2 == 0",
+      "execution_time": 0.3300611972808838
+    },
+    {
+      "success": true,
+      "generated": "Here is how you can complete your function:",
+      "passed": false,
+      "evaluation_time": 0.39947126,
+      "problem_id": "max_three",
+      "description": "Maximum of three numbers",
+      "prompt": "def max_of_three(a, b, c):\n    \"\"\"\n    Return the maximum of three numbers.\n    >>> max_of_three(1, 2, 3)\n    3\n    \"\"\"\n    return",
+      "expected": "max(",
+      "execution_time": 0.4350457191467285
+    },
+    {
+      "success": true,
+      "generated": "Here is the completed function:",
+      "passed": false,
+      "evaluation_time": 0.301759869,
+      "problem_id": "reverse_string",
+      "description": "String reversal",
+      "prompt": "def reverse_string(s):\n    \"\"\"\n    Reverse a string.\n    >>> reverse_string('hello')\n    'olleh'\n    \"\"\"\n    return",
+      "expected": "[::-1]",
+      "execution_time": 0.3376021385192871
+    },
+    {
+      "success": true,
+      "generated": "To complete the given Python function for computing a factorial, you need to multiply `n` by the factorial of `(n-1)` until reaching the base case where `n` is equal to zero. Here's how your code should look:",
+      "passed": false,
+      "evaluation_time": 1.136837542,
+      "problem_id": "factorial",
+      "description": "Recursive factorial",
+      "prompt": "def factorial(n):\n    \"\"\"\n    Compute factorial of n.\n    >>> factorial(5)\n    120\n    \"\"\"\n    if n == 0:\n        return 1\n    return",
+      "expected": "n * factorial(n-1)",
+      "execution_time": 1.1802551746368408
+    },
+    {
+      "success": true,
+      "generated": "fibonacci(n - 1) + fibonacci(n - 2)",
+      "passed": false,
+      "evaluation_time": 0.584429412,
+      "problem_id": "fibonacci",
+      "description": "Fibonacci sequence",
+      "prompt": "def fibonacci(n):\n    \"\"\"\n    Return the n-th Fibonacci number.\n    >>> fibonacci(6)\n    8\n    \"\"\"\n    if n <= 1:\n        return n\n    return",
+      "expected": "fibonacci(n-1) + fibonacci(n-2)",
+      "execution_time": 0.6196200847625732
+    },
+    {
+      "success": true,
+      "generated": "",
+      "passed": false,
+      "evaluation_time": 0.308277709,
+      "problem_id": "list_sum",
+      "description": "Sum of list elements",
+      "prompt": "def sum_list(numbers):\n    \"\"\"\n    Return the sum of a list of numbers.\n    >>> sum_list([1, 2, 3, 4])\n    10\n    \"\"\"\n    total = 0\n    for num in numbers:\n        total +=",
+      "expected": "num",
+      "execution_time": 0.34648704528808594
+    },
+    {
+      "success": true,
+      "generated": "",
+      "passed": false,
+      "evaluation_time": 0.302087304,
+      "problem_id": "count_vowels",
+      "description": "Count vowels in text",
+      "prompt": "def count_vowels(text):\n    \"\"\"\n    Count vowels in a string.\n    >>> count_vowels('hello')\n    2\n    \"\"\"\n    vowels = 'aeiou'\n    count = 0\n    for char in text.lower():\n        if char in",
+      "expected": "vowels",
+      "execution_time": 0.33480191230773926
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "total": 8,
+    "score": 0.0,
+    "percentage": 0.0,
+    "total_time": 7.803868532180786,
+    "avg_time_per_problem": 0.9754835665225983
+  }
+}

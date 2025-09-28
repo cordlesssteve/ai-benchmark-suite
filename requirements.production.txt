@@ -1,0 +1,101 @@
+# AI Benchmark Suite - Production Requirements
+# Sprint 4.0: Enterprise Production Dependencies
+
+# Core dependencies (from requirements.txt)
+pyyaml>=6.0
+requests>=2.28.0
+numpy>=1.21.0
+pandas>=1.3.0
+tqdm>=4.64.0
+click>=8.0.0
+
+# API dependencies for OpenAI and Anthropic
+openai>=1.0.0
+anthropic>=0.3.0
+
+# HuggingFace Transformers ecosystem
+transformers>=4.30.0
+torch>=2.0.0
+tokenizers>=0.13.0
+datasets>=2.12.0
+accelerate>=0.20.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Production web framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+gunicorn>=20.1.0
+pydantic>=2.0.0
+python-multipart>=0.0.6
+
+# Database and caching
+psycopg2-binary>=2.9.0
+redis>=4.5.0
+sqlalchemy>=2.0.0
+alembic>=1.11.0
+
+# Monitoring and logging
+prometheus-client>=0.16.0
+structlog>=23.1.0
+python-json-logger>=2.0.0
+sentry-sdk[fastapi]>=1.25.0
+
+# Analytics and visualization
+plotly>=5.14.0
+streamlit>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+bokeh>=3.1.0
+
+# Background job processing
+celery>=5.3.0
+flower>=2.0.0
+
+# Production utilities
+supervisor>=4.2.0
+nginx-python-module>=1.0.0
+certbot>=2.6.0
+
+# Security and authentication
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6
+
+# Configuration management
+python-dotenv>=1.0.0
+environs>=9.5.0
+
+# Testing and validation (for production health checks)
+pytest>=7.0.0
+httpx>=0.24.0
+
+# Development and debugging (optional in production)
+black>=22.0.0
+flake8>=5.0.0
+mypy>=1.0.0
+
+# Container and orchestration
+docker>=6.0.0
+kubernetes>=26.1.0
+
+# File handling and compression
+aiofiles>=23.1.0
+python-magic>=0.4.27
+
+# Rate limiting and throttling
+slowapi>=0.1.8
+limits>=3.5.0
+
+# WebSocket support for real-time monitoring
+websockets>=11.0.0
+
+# Excel and report generation
+openpyxl>=3.1.0
+reportlab>=4.0.0
+
+# Email notifications
+aiosmtplib>=2.0.0
+
+# Process management
+psutil>=5.9.0

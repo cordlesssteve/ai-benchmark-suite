@@ -1,0 +1,65 @@
+{
+  "model": "phi3.5:latest",
+  "evaluation_type": "humaneval_real",
+  "timestamp": 1759034414.5845423,
+  "dataset_source": "openai_humaneval",
+  "total_problems": 5,
+  "passed": 0,
+  "failed": 5,
+  "pass_at_1": 0.0,
+  "percentage": 0.0,
+  "total_time": 13.479494094848633,
+  "avg_time_per_problem": 2.6958988189697264,
+  "results": [
+    {
+      "task_id": "HumanEval/0",
+      "passed": false,
+      "result": "FAILED: AssertionError:",
+      "completion": "from typing import List",
+      "stdout": "FAILED: AssertionError:",
+      "stderr": "",
+      "execution_time": 2.229870080947876,
+      "model": "phi3.5:latest"
+    },
+    {
+      "task_id": "HumanEval/1",
+      "passed": false,
+      "result": "FAILED: AssertionError:",
+      "completion": "from typing import List\nimport re",
+      "stdout": "FAILED: AssertionError:",
+      "stderr": "",
+      "execution_time": 1.0609195232391357,
+      "model": "phi3.5:latest"
+    },
+    {
+      "task_id": "HumanEval/2",
+      "passed": false,
+      "result": "File \"/tmp/tmpyoifqtyd.py\", line 39\n    print(truncate extricate_number(3.5))   # Expected Output: 0.5\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?",
+      "completion": "def truncate_number(number: float) -> float:\n    integer_part = int(number) # Extracting the largest integer smaller than given number\n    decimal_part = number - integer_part # Calculating leftover part (decimal portion of the number)\n    \n    return round(decimal_part, 1) # Returning rounded off to one place after the decimal point for precision up to two places as requested in your example output.\n\n# Test cases:\nprint(truncate extricate_number(3.5))   # Expected Output: 0.5",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpyoifqtyd.py\", line 39\n    print(truncate extricate_number(3.5))   # Expected Output: 0.5\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nSyntaxError: invalid syntax. Perhaps you forgot a comma?",
+      "execution_time": 3.7202916145324707,
+      "model": "phi3.5:latest"
+    },
+    {
+      "task_id": "HumanEval/3",
+      "passed": false,
+      "result": "FAILED: AssertionError:",
+      "completion": "from typing import List",
+      "stdout": "FAILED: AssertionError:",
+      "stderr": "",
+      "execution_time": 1.0526769161224365,
+      "model": "phi3.5:latest"
+    },
+    {
+      "task_id": "HumanEval/4",
+      "passed": false,
+      "result": "File \"/tmp/tmpu35udcni.py\", line 33\n    Here's the completed Python code with added comments for clarity:\n        ^\nSyntaxError: unterminated string literal (detected at line 33)",
+      "completion": "Here's the completed Python code with added comments for clarity:\n\n```python\nfrom typing import List",
+      "stdout": "",
+      "stderr": "File \"/tmp/tmpu35udcni.py\", line 33\n    Here's the completed Python code with added comments for clarity:\n        ^\nSyntaxError: unterminated string literal (detected at line 33)",
+      "execution_time": 5.415735960006714,
+      "model": "phi3.5:latest"
+    }
+  ]
+}
