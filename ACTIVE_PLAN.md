@@ -1,10 +1,10 @@
 # Active Development Plan - AI Benchmark Suite
 **Status:** ACTIVE
 **Created:** 2025-09-27
-**Last Updated:** 2025-09-27 13:48
-**Planning Horizon:** Next 2-4 weeks
-**Phase:** BigCode Real Harness Integration
-**Archived Version:** docs/progress/2025-09/ACTIVE_PLAN_2025-09-27_1348.md
+**Last Updated:** 2025-09-27 19:07
+**Planning Horizon:** Next 2-3 weeks
+**Phase:** Pass@K Metrics and Advanced Features
+**Archived Version:** docs/progress/2025-09/ACTIVE_PLAN_2025-09-27_1907.md
 
 ## 🎯 Current Sprint Objectives
 
@@ -17,46 +17,31 @@
 - ✅ Unified runner routing to real adapter
 - ✅ End-to-end testing verified (limited only by Ollama availability)
 
-#### Priority 1: BigCode Real Integration (Sprint-Based) ⚡
-**Status**: Ready for Sprint 1.0
-**Target**: Sprint-by-sprint completion
-
-**Sprint 1.0: Basic BigCode Harness Integration** (1-2 sessions)
-- Goal: Get BigCode harness running end-to-end without security
-- Create `RealBigCodeAdapter` class
-- Direct BigCode harness subprocess execution
-- Basic HumanEval task execution (unsafe but working)
-- **Success**: Returns actual Pass@1 scores from real BigCode harness
-
-**Sprint 1.1: Code Execution Safety Framework** (1-2 sessions)
-- Goal: Add basic security isolation for code execution
-- Temporary directory isolation
-- Timeout mechanisms and resource limits
-- Error handling for malicious code attempts
-- **Success**: Safe execution environment for generated code
-
-**Sprint 1.2: Test Case Execution Engine** (1-2 sessions)
-- Goal: Robust test case execution with proper error handling
-- Function extraction from generated code
-- Test case execution framework with error handling
-- Multiple test case batching
-- **Success**: Comprehensive test execution with detailed results
+#### ✅ COMPLETED: BigCode Real Integration (Sprint 1.0-1.2)
+**Status**: Production Ready
+- ✅ Real BigCode harness integration with RealBigCodeAdapter
+- ✅ Enhanced test execution engine with comprehensive safety framework
+- ✅ Function extraction and test case execution
+- ✅ Proper error handling and batch execution support
 
 ### Phase 2: Production Readiness (Weeks 3-4)
 
-#### Sprint 2.0: Container-Based Sandboxing (2-3 sessions)
-- Goal: Production-grade security using Docker containers
-- Docker container execution environment
-- Network isolation and secure volume mounting
-- Container resource limits and cleanup
-- **Success**: All code executes in isolated Docker containers
+#### ✅ COMPLETED: Sprint 2.0: Container-Based Sandboxing
+**Status**: Production Ready
+- ✅ Docker container execution environment with CLI integration
+- ✅ Production-grade security hardening (network isolation, read-only filesystem)
+- ✅ Container resource limits (memory, CPU, processes, ulimits)
+- ✅ Proper container lifecycle management and cleanup
+- ✅ Security features: capability dropping, non-root execution, tmpfs isolation
 
-#### Sprint 2.1: Pass@K Metrics Implementation (1-2 sessions)
+#### Priority 1: Sprint 2.1: Pass@K Metrics Implementation (1-2 sessions) ⚡
+**Status**: Next Sprint
+**Target**: Complete Pass@K evaluation metrics
 - Goal: Full BigCode evaluation metrics (Pass@1, Pass@10, Pass@100)
-- Multiple generation sampling
-- Pass@K statistical calculations
-- Temperature and sampling parameter support
-- **Success**: Matches BigCode harness reference metrics
+- Multiple generation sampling with temperature control
+- Pass@K statistical calculations and confidence intervals
+- Integration with unified runner for multiple sampling
+- **Success**: Matches BigCode harness reference metrics exactly
 
 ### Phase 3: Advanced Features (Future Sprints)
 
@@ -74,35 +59,35 @@
 
 ### Current State
 - **LM-Eval Integration**: ✅ Real harness with custom Ollama adapter
-- **BigCode Integration**: ⚠️ Honest prototype (ready for Sprint 1.0)
+- **BigCode Integration**: ✅ Real harness with Docker container isolation
+- **Security Framework**: ✅ Production-grade Docker sandboxing
 - **Model Interfaces**: Basic Ollama integration working
-- **Unified Runner**: Routes correctly to real/prototype adapters
+- **Unified Runner**: Routes correctly to real adapters with container support
 
-### Target Architecture (Post-Sprint 1.2)
-- **Both Harnesses**: Real integration with actual metrics
-- **Security**: Safe code execution in isolated environments
-- **Metrics**: Comprehensive Pass@K calculations
-- **Performance**: Optimized for production use
+### Target Architecture (Post-Sprint 2.1)
+- **Both Harnesses**: ✅ Real integration with actual metrics and container isolation
+- **Security**: ✅ Production-grade Docker container isolation
+- **Metrics**: Pass@K calculations with multiple sampling (Sprint 2.1)
+- **Performance**: Optimized for production use (Sprint 3.0)
 
 ## 📊 Success Criteria
 
-### Sprint 1.0 Success
-- [ ] `RealBigCodeAdapter` class implemented
-- [ ] BigCode harness executes generated code
-- [ ] Returns actual Pass@1 scores
-- [ ] Unified runner uses real BigCode adapter
+### Sprint 1.0-2.0 Success (✅ COMPLETED)
+- [x] `RealBigCodeAdapter` class implemented
+- [x] BigCode harness executes generated code
+- [x] Returns actual Pass@1 scores
+- [x] Unified runner uses real BigCode adapter
+- [x] Docker container isolation with security hardening
+- [x] Resource limits and timeout protection
+- [x] Function extraction and comprehensive test execution
+- [x] Detailed error reporting and batch support
 
-### Sprint 1.1 Success
-- [ ] Code executes in isolated directories
-- [ ] Timeout protection working
-- [ ] Resource limits enforced
-- [ ] Malicious code detection and handling
-
-### Sprint 1.2 Success
-- [ ] Function extraction from generated code
-- [ ] Comprehensive test case execution
-- [ ] Detailed error reporting
-- [ ] Multiple test case support
+### Sprint 2.1 Success (NEXT)
+- [ ] Multiple generation sampling (n > 1)
+- [ ] Pass@K statistical calculations
+- [ ] Temperature and sampling parameter control
+- [ ] Integration with unified runner CLI
+- [ ] Validation against BigCode reference metrics
 
 ## 🚀 Implementation Strategy
 
@@ -121,9 +106,9 @@
 ## 📅 Next Session Priority
 
 **Immediate Next Steps:**
-1. Start Sprint 1.0: Basic BigCode harness integration
-2. Create `RealBigCodeAdapter` class structure
-3. Implement basic BigCode harness subprocess execution
-4. Test with simple HumanEval problems
+1. Start Sprint 2.1: Pass@K metrics implementation
+2. Extend BigCode adapter for multiple generation sampling
+3. Implement Pass@K statistical calculations
+4. Add CLI support for sampling parameters (temperature, n_samples)
 
-**Session Goal**: Complete Sprint 1.0 and have real BigCode evaluation working (without security)
+**Session Goal**: Complete Sprint 2.1 and have full Pass@K evaluation metrics (Pass@1, Pass@10, Pass@100)

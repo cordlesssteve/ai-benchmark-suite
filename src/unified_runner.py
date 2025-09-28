@@ -159,7 +159,8 @@ class UnifiedRunner:
 
         # Import model interfaces
         from model_interfaces.ollama_interface import OllamaInterface
-        from model_interfaces.honest_bigcode_adapter import HonestBigCodeAdapter
+        from model_interfaces.real_bigcode_adapter import RealBigCodeAdapter
+        from model_interfaces.safe_bigcode_adapter import SafeBigCodeAdapter
         from model_interfaces.real_lm_eval_adapter import RealLMEvalAdapter
 
         # Create model interface based on model configuration
@@ -173,27 +174,68 @@ class UnifiedRunner:
 
             # Route to appropriate harness with model interface
             if harness == Harness.BIGCODE:
-                adapter = HonestBigCodeAdapter(self.project_root)
+                # Use safe adapter for Sprint 1.1+ with security isolation
+                use_safe_mode = kwargs.get('safe_mode', True)  # Default to safe mode
+
+                if use_safe_mode:
+                    # Import and create safety config
+                    from model_interfaces.safe_bigcode_adapter import SafeExecutionConfig
+
+                    safety_config_dict = kwargs.get('safety_config', {})
+                    safety_config = SafeExecutionConfig(
+                        max_execution_time=safety_config_dict.get('max_execution_time', 300),
+                        max_memory_mb=safety_config_dict.get('max_memory_mb', 2048),
+                        max_file_size_mb=safety_config_dict.get('max_file_size_mb', 100),
+                        max_processes=safety_config_dict.get('max_processes', 10),
+                        cleanup_on_error=safety_config_dict.get('cleanup_on_error', True)
+                    )
+
+                    adapter = SafeBigCodeAdapter(self.project_root, safety_config)
+                    print("🔒 Using SafeBigCodeAdapter with security isolation")
+                    print(f"   - Max execution time: {safety_config.max_execution_time}s")
+                    print(f"   - Max memory: {safety_config.max_memory_mb}MB")
+                else:
+                    adapter = RealBigCodeAdapter(self.project_root)
+                    print("⚠️ Using RealBigCodeAdapter without safety measures")
+
                 result = adapter.run_evaluation(task, model, model_interface, **kwargs)
 
-                return BenchmarkResult(
-                    harness="prototype_code_eval",
-                    task=task,
-                    model=model,
-                    score=result.prototype_score,
-                    metrics={
-                        "prototype_score": result.prototype_score,
-                        "basic_checks": result.basic_checks,
-                        "warning": result.warning
-                    },
-                    metadata={
-                        "prompt": result.prompt,
-                        "generated_code": result.generated_code,
-                        "evaluation_type": "prototype",
-                        "warning": result.warning
-                    },
-                    execution_time=result.execution_time
-                )
+                if result.success:
+                    # Extract primary metric from BigCode results
+                    primary_score = 0.0
+                    if result.metrics:
+                        # Try common BigCode metric names
+                        for metric_name in ['pass@1', 'pass@k', 'accuracy', 'score']:
+                            if metric_name in result.metrics:
+                                primary_score = result.metrics[metric_name]
+                                break
+
+                    return BenchmarkResult(
+                        harness="real_bigcode",
+                        task=task,
+                        model=model,
+                        score=primary_score,
+                        metrics=result.metrics,
+                        metadata={
+                            "raw_output": result.raw_output,
+                            "evaluation_type": "real_bigcode_harness"
+                        },
+                        execution_time=result.execution_time
+                    )
+                else:
+                    return BenchmarkResult(
+                        harness="real_bigcode_failed",
+                        task=task,
+                        model=model,
+                        score=0.0,
+                        metrics={"error": result.error_message},
+                        metadata={
+                            "raw_output": result.raw_output,
+                            "evaluation_type": "real_bigcode_harness",
+                            "error": result.error_message
+                        },
+                        execution_time=result.execution_time
+                    )
             elif harness == Harness.LM_EVAL:
                 adapter = RealLMEvalAdapter(self.project_root)
                 result = adapter.run_evaluation(task, model, model_interface, **kwargs)
@@ -529,6 +571,25 @@ def main():
     parser.add_argument("--limit", type=int, help="Limit number of problems")
     parser.add_argument("--n_samples", type=int, default=1, help="Samples per problem")
     parser.add_argument("--temperature", type=float, default=0.2, help="Generation temperature")
+    parser.add_argument("--safe-mode", action="store_true", default=True, help="Use safe execution mode (default: True)")
+    parser.add_argument("--unsafe-mode", action="store_true", help="Disable safety measures (dangerous)")
+    parser.add_argument("--max-execution-time", type=int, default=300, help="Max execution time per evaluation (seconds)")
+    parser.add_argument("--max-memory-mb", type=int, default=2048, help="Max memory usage (MB)")
+    parser.add_argument("--max-problems", type=int, default=5, help="Max problems for safety (1-5)")
+
+    # Sprint 1.2: Enhanced testing options
+    parser.add_argument("--enhanced-testing", action="store_true", help="Enable enhanced test execution with function extraction")
+    parser.add_argument("--test-timeout", type=float, default=3.0, help="Per-test timeout (seconds)")
+    parser.add_argument("--max-test-workers", type=int, default=4, help="Max parallel test workers")
+    parser.add_argument("--no-parallel-testing", action="store_true", help="Disable parallel test execution")
+    parser.add_argument("--no-detailed-reports", action="store_true", help="Disable detailed test reports")
+
+    # Sprint 2.0: Container isolation options
+    parser.add_argument("--container-isolation", action="store_true", help="Use Docker containers for maximum isolation")
+    parser.add_argument("--container-image", default="python:3.11-slim", help="Docker image for container execution")
+    parser.add_argument("--container-memory", default="512m", help="Container memory limit")
+    parser.add_argument("--container-cpu", default="0.5", help="Container CPU limit (cores)")
+    parser.add_argument("--container-network", action="store_true", help="Enable network access in containers (default: disabled)")
 
     args = parser.parse_args()
 
@@ -545,10 +606,40 @@ def main():
     if not models:
         parser.error("Must specify --model or --models")
 
+    # Determine safety mode
+    safe_mode = args.safe_mode and not args.unsafe_mode
+    if args.unsafe_mode:
+        print("⚠️ WARNING: Running in UNSAFE mode - security measures disabled!")
+
+    # Safety configuration
+    safety_config = {
+        'max_execution_time': args.max_execution_time,
+        'max_memory_mb': args.max_memory_mb,
+        'max_file_size_mb': 100,
+        'max_processes': 10,
+        'cleanup_on_error': True,
+        # Sprint 1.2: Enhanced testing configuration
+        'test_timeout': args.test_timeout,
+        'max_test_workers': args.max_test_workers,
+        'enable_function_extraction': True,
+        'enable_detailed_reporting': not args.no_detailed_reports,
+        'enable_parallel_testing': not args.no_parallel_testing,
+        # Sprint 2.0: Container isolation configuration
+        'use_container_isolation': args.container_isolation,
+        'container_image': args.container_image,
+        'container_memory_limit': args.container_memory,
+        'container_cpu_limit': args.container_cpu,
+        'container_timeout': args.max_execution_time,
+        'container_network_isolation': not args.container_network
+    }
+
     kwargs = {
-        'limit': args.limit,
+        'limit': min(args.limit or 1, args.max_problems),  # Cap for safety
         'n_samples': args.n_samples,
         'temperature': args.temperature,
+        'safe_mode': safe_mode,
+        'safety_config': safety_config,
+        'enhanced_testing': args.enhanced_testing,  # Sprint 1.2
     }
 
     if args.task:
