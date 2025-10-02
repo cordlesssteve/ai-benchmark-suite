@@ -1,0 +1,133 @@
+# Adaptive Ollama Configuration
+# Production-ready configuration for Phase 2 adaptive prompting system
+
+# Ollama server configuration
+ollama:
+  base_url: "http://localhost:11434"
+  timeout: 120
+  quality_threshold: 0.6  # Minimum quality for content_quality_success
+
+# Multi-armed bandit configuration
+bandit:
+  exploration_alpha: 2.0              # Higher = more exploration (1.0-3.5)
+  target_exploration_rate: 0.3        # Target 30% exploration
+  target_diversity: 0.6               # Target 60% strategy diversity
+  diversity_enforcement: true         # Enable diversity enforcement
+  min_alpha: 1.0                     # Minimum alpha value
+  max_alpha: 3.5                     # Maximum alpha value
+
+# Strategy configurations
+strategies:
+  code_engine:
+    prompt: "You are a code completion engine. Complete the code with only the missing parts. No explanations."
+    temperature: 0.0
+    stop_tokens: ["\n\n"]
+
+  silent_generator:
+    prompt: "Complete the code. Output only the completion."
+    temperature: 0.1
+    stop_tokens: ["\n\n"]
+
+  deterministic:
+    prompt: "Complete this code with the most likely continuation:"
+    temperature: 0.0
+    stop_tokens: ["\n\n"]
+
+  negative_prompt:
+    prompt: "Complete the code. Do NOT include explanations, comments, or markdown. Code only."
+    temperature: 0.1
+    stop_tokens: ["\n\n"]
+
+  format_constraint:
+    prompt: "Format: code_only. Complete: "
+    temperature: 0.1
+    stop_tokens: ["\n\n"]
+
+  role_based:
+    prompt: "As a code autocomplete tool, complete this code:"
+    temperature: 0.0
+    stop_tokens: ["\n\n"]
+
+# Logging configuration
+logging:
+  level: "INFO"                      # DEBUG, INFO, WARNING, ERROR
+  file: null                         # Optional log file path
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Performance monitoring
+monitoring:
+  enable_metrics: true               # Track performance metrics
+  metrics_interval: 100              # Log metrics every N requests
+  save_analytics: true               # Save adaptation analytics
+  analytics_file: "adaptation_analytics.json"
+
+# Persistence configuration
+persistence:
+  bandit_data_dir: "./bandit_data"   # Directory for bandit databases
+  backup_interval: 1000              # Backup every N interactions
+  cleanup_old_data: true             # Clean up old backups
+
+# Quality evaluation configuration
+quality:
+  # Syntactic quality weights
+  syntax_weight: 0.25
+  completeness_weight: 0.25
+  readability_weight: 0.25
+  executability_weight: 0.25
+
+  # Quality thresholds
+  high_quality_threshold: 0.8
+  medium_quality_threshold: 0.6
+  low_quality_threshold: 0.4
+
+# Context analysis configuration
+context_analysis:
+  # Feature extraction settings
+  max_prompt_length: 2048            # Truncate longer prompts
+  enable_domain_detection: true      # Enable specialized domain detection
+  enable_complexity_analysis: true   # Enable complexity scoring
+
+  # Domain-specific settings
+  domain_keywords_file: null         # Optional custom domain keywords
+
+# Model-specific configurations
+models:
+  # Example model-specific settings
+  "qwen2.5-coder:3b":
+    exploration_alpha: 2.2           # Slightly higher exploration for smaller model
+    quality_threshold: 0.55          # Lower threshold for smaller model
+
+  "phi3:latest":
+    exploration_alpha: 1.8           # Lower exploration for larger model
+    quality_threshold: 0.65          # Higher threshold for larger model
+
+  "deepseek-coder:6.7b":
+    exploration_alpha: 1.5           # Even lower exploration for large model
+    quality_threshold: 0.7           # Higher threshold expected
+
+# Benchmark configurations
+benchmarks:
+  simple:
+    problems: 5
+    timeout: 30
+
+  humaneval:
+    problems: 164
+    timeout: 60
+
+  bigcode:
+    problems: 1000
+    timeout: 45
+
+# CLI defaults
+cli:
+  default_model: "qwen2.5-coder:3b"
+  default_problems: 5
+  default_timeout: 120
+  verbose: true
+
+# Development and testing
+development:
+  debug_mode: false
+  simulation_mode: false             # For testing without real Ollama
+  mock_responses: false              # Use mock responses for testing

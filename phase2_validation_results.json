@@ -1,0 +1,117 @@
+{
+  "timestamp": 1759099009.5119734,
+  "validation_type": "comprehensive",
+  "ollama_status": {
+    "available": false,
+    "error": "Connection refused"
+  },
+  "core_validation": {
+    "interface_creation": {
+      "success": true
+    },
+    "context_analysis": {
+      "success": true,
+      "prompts_analyzed": 5,
+      "feature_dimensions": 11,
+      "results": [
+        {
+          "prompt": "def fibonacci(n):...",
+          "domain_score": 0.0,
+          "completion_type": 0.5,
+          "feature_vector_length": 11
+        },
+        {
+          "prompt": "class DataProcessor:...",
+          "domain_score": 0.0,
+          "completion_type": 0.7,
+          "feature_vector_length": 11
+        },
+        {
+          "prompt": "import pandas as pd\ndf = pd.Da...",
+          "domain_score": 0.5454545454545454,
+          "completion_type": 0.4,
+          "feature_vector_length": 11
+        },
+        {
+          "prompt": "const component = () => { retu...",
+          "domain_score": 0.0,
+          "completion_type": 0.2,
+          "feature_vector_length": 11
+        },
+        {
+          "prompt": "SELECT * FROM users WHERE...",
+          "domain_score": 0.0,
+          "completion_type": 0.1,
+          "feature_vector_length": 11
+        }
+      ]
+    },
+    "strategy_learning": {
+      "success": true,
+      "strategies_tested": 5,
+      "exploration_rate": 0.0,
+      "strategy_diversity": 0.16666666666666666,
+      "strategy_results": [
+        {
+          "prompt_type": "def fibonacci(n):",
+          "strategy": "code_engine",
+          "confidence": 1.0209403103023535,
+          "predicted_reward": 0.8818558473358378
+        },
+        {
+          "prompt_type": "class DataProcessor:",
+          "strategy": "code_engine",
+          "confidence": 1.647265760592838,
+          "predicted_reward": 1.1524807584935195
+        },
+        {
+          "prompt_type": "import pandas as pd\n",
+          "strategy": "code_engine",
+          "confidence": 1.3275201113818809,
+          "predicted_reward": 0.8539281537591511
+        },
+        {
+          "prompt_type": "const component = ()",
+          "strategy": "code_engine",
+          "confidence": 1.2231798089859598,
+          "predicted_reward": 0.909438925544785
+        },
+        {
+          "prompt_type": "SELECT * FROM users ",
+          "strategy": "code_engine",
+          "confidence": 1.2219233479972367,
+          "predicted_reward": 0.859806865207956
+        }
+      ]
+    },
+    "error_handling": {
+      "success": true,
+      "errors_tested": 3,
+      "recovery_rate": 1.0,
+      "fallback_results": [
+        {
+          "error_type": "ConnectionError",
+          "component": "ollama_connection",
+          "fallback_used": "cached_response",
+          "error_recovered": true
+        },
+        {
+          "error_type": "ValueError",
+          "component": "bandit_system",
+          "fallback_used": "deterministic",
+          "error_recovered": true
+        },
+        {
+          "error_type": "ImportError",
+          "component": "system_config",
+          "fallback_used": "fail_safe",
+          "error_recovered": false
+        }
+      ]
+    }
+  },
+  "ollama_validation": {
+    "skipped": true,
+    "reason": "No models available"
+  }
+}
