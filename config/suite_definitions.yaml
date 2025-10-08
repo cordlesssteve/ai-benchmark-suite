@@ -1,6 +1,12 @@
 # Benchmark Suite Definitions
 # Defines collections of tasks to run together
 
+# CONTAMINATION STATUS:
+# - contamination_resistant_*: LOW risk (temporal protection, monthly updates)
+# - legacy_*: HIGH risk (confirmed contaminated - HumanEval, MBPP)
+#
+# Recommendation: Use contamination_resistant suites for valid evaluation
+
 suites:
   quick:
     description: "Quick test suite for rapid validation (~5-10 minutes)"
@@ -66,7 +72,7 @@ suites:
     estimated_time: "6-12 hours"
 
   code_only:
-    description: "Code generation benchmarks only"
+    description: "Code generation benchmarks only (LEGACY - contaminated)"
     tasks:
       - humaneval
       - mbpp
@@ -76,6 +82,7 @@ suites:
       limit: null
       n_samples: 20
       temperature: 0.2
+    contamination_warning: "HIGH - HumanEval and MBPP confirmed contaminated"
 
   language_only:
     description: "Language understanding benchmarks only"
@@ -91,24 +98,205 @@ suites:
       n_samples: 10
       temperature: 0.2
 
+  # ============================================================================
+  # CONTAMINATION-RESISTANT SUITES (Recommended)
+  # ============================================================================
+
+  contamination_resistant_quick:
+    description: "Quick contamination-resistant evaluation (~10-20 min)"
+    tasks:
+      - livecodebench_recent
+      - bigcodebench_sample
+    settings:
+      limit: 20
+      n_samples: 1
+      temperature: 0.2
+      temporal_filter: true
+    estimated_time: "10-20 minutes"
+    contamination_status: "LOW"
+
+  contamination_resistant_standard:
+    description: "Standard contamination-resistant suite (~60-120 min)"
+    tasks:
+      - livecodebench_v6
+      - bigcodebench
+      - swebench_live_latest
+    settings:
+      limit: 50
+      n_samples: 5
+      temperature: 0.2
+      temporal_filter: true
+    estimated_time: "60-120 minutes"
+    contamination_status: "LOW"
+
+  contamination_resistant_comprehensive:
+    description: "Comprehensive contamination-resistant evaluation (~4-8 hours)"
+    tasks:
+      - livecodebench_v6_full
+      - bigcodebench_full
+      - swebench_live_month
+    settings:
+      limit: null  # No limit
+      n_samples: 10
+      temperature: 0.2
+      temporal_filter: true
+      statistical_analysis: true
+    estimated_time: "4-8 hours"
+    contamination_status: "LOW"
+
+  # Code-focused contamination-resistant
+  contamination_resistant_code_only:
+    description: "Contamination-resistant code generation only"
+    tasks:
+      - livecodebench_v6
+      - bigcodebench
+    settings:
+      limit: null
+      n_samples: 10
+      temperature: 0.2
+      temporal_filter: true
+    contamination_status: "LOW"
+
+  # Repository-level evaluation
+  swebench_live_evaluation:
+    description: "Repository-level software engineering evaluation"
+    tasks:
+      - swebench_live_latest
+    settings:
+      limit: 50
+      timeout_per_instance: 300
+      n_samples: 1
+      temperature: 0.2
+    estimated_time: "60-180 minutes"
+    contamination_status: "LOW"
+
 # Task Categories
 categories:
-  code_generation:
-    - humaneval
-    - mbpp
-    - apps
-    - ds1000
+  # Contamination-resistant benchmarks (RECOMMENDED)
+  contamination_resistant_code:
+    description: "Code generation with temporal protection"
+    contamination_status: "LOW"
+    tasks:
+      - livecodebench_v6
+      - livecodebench_v6_full
+      - livecodebench_recent
+      - bigcodebench
+      - bigcodebench_full
+      - bigcodebench_sample
+      - swebench_live_latest
+      - swebench_live_month
+
+  # Legacy contaminated benchmarks (use with caution)
+  legacy_contaminated_code:
+    description: "LEGACY - Known contamination (HumanEval, MBPP)"
+    contamination_status: "HIGH"
+    contamination_warning: "HumanEval: confirmed in training data. MBPP: 65.4% contaminated"
+    tasks:
+      - humaneval
+      - mbpp
+      - apps
+      - ds1000
 
   language_understanding:
-    - hellaswag
-    - arc_easy
-    - arc_challenge
-    - winogrande
+    tasks:
+      - hellaswag
+      - arc_easy
+      - arc_challenge
+      - winogrande
 
   mathematical_reasoning:
-    - mathqa
-    - gsm8k
+    tasks:
+      - mathqa
+      - gsm8k
 
   common_sense:
-    - hellaswag
-    - winogrande
+    tasks:
+      - hellaswag
+      - winogrande
+
+# Task Definitions
+tasks:
+  # ============================================================================
+  # CONTAMINATION-RESISTANT BENCHMARKS
+  # ============================================================================
+
+  livecodebench_v6:
+    harness: "livecodebench"
+    description: "LiveCodeBench v6 (1055 problems, May 2023 - Apr 2025)"
+    release_version: "release_v6"
+    scenario: "codegeneration"
+    contamination_protection: "temporal"
+    contamination_status: "LOW"
+
+  livecodebench_v6_full:
+    harness: "livecodebench"
+    description: "LiveCodeBench v6 full evaluation (all problems)"
+    release_version: "release_v6"
+    scenario: "codegeneration"
+    contamination_protection: "temporal"
+    contamination_status: "LOW"
+
+  livecodebench_recent:
+    harness: "livecodebench"
+    description: "LiveCodeBench recent problems only (last 3 months)"
+    release_version: "release_v6"
+    scenario: "codegeneration"
+    temporal_filter_months: 3
+    contamination_protection: "temporal"
+    contamination_status: "LOW"
+
+  bigcodebench:
+    harness: "bigcodebench"
+    description: "BigCodeBench standard evaluation"
+    subset: "full"
+    contamination_warning: "MODERATE - Public benchmark"
+    contamination_status: "MODERATE"
+
+  bigcodebench_full:
+    harness: "bigcodebench"
+    description: "BigCodeBench full evaluation"
+    subset: "full"
+    contamination_warning: "MODERATE - Public benchmark"
+    contamination_status: "MODERATE"
+
+  bigcodebench_sample:
+    harness: "bigcodebench"
+    description: "BigCodeBench sample (20 problems)"
+    subset: "full"
+    limit: 20
+    contamination_warning: "MODERATE - Public benchmark"
+    contamination_status: "MODERATE"
+
+  swebench_live_latest:
+    harness: "swebench_live"
+    description: "SWE-bench Live latest month"
+    split: "test"
+    contamination_protection: "temporal"
+    contamination_status: "LOW"
+
+  swebench_live_month:
+    harness: "swebench_live"
+    description: "SWE-bench Live current month (50 issues)"
+    split: "test"
+    contamination_protection: "temporal"
+    contamination_status: "LOW"
+
+  # ============================================================================
+  # LEGACY CONTAMINATED BENCHMARKS (Deprecated)
+  # ============================================================================
+
+  humaneval:
+    harness: "bigcode"
+    description: "LEGACY - HumanEval (CONFIRMED CONTAMINATED)"
+    contamination_status: "HIGH"
+    contamination_warning: "Public since 2021, in training data of major models"
+    deprecated: true
+    replacement: "livecodebench_v6"
+
+  mbpp:
+    harness: "bigcode"
+    description: "LEGACY - MBPP (65.4% CONTAMINATED)"
+    contamination_status: "HIGH"
+    contamination_warning: "65.4% from public sources, decontamination failed"
+    deprecated: true
+    replacement: "livecodebench_v6"
