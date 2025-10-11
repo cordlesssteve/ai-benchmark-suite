@@ -1,32 +1,14 @@
 # AI Benchmark Suite - Current Status
 
-**Status:** ACTIVE PROJECT
-**Last Updated:** 2025-10-11 14:14
-**Project Phase:** MCP Tool-Use Benchmarking Research Complete
-**Next Phase:** MCP-Bench Design Implementation
-**Previous Archive:** docs/progress/2025-10/CURRENT_STATUS.2025-10-11_1414.md
+**Status:** SUPERSEDED PROJECT
+**Last Updated:** 2025-10-10 22:48
+**Project Phase:** Unified Runner Integration Complete
+**Next Phase:** Resolve LiveCodeBench Compatibility & Testing
+**Previous Archive:** docs/progress/2025-10/CURRENT_STATUS.2025-10-10_2248.md
 
 ---
 
 ## 📊 Current Reality
-
-### ✅ Completed (October 11, 2025 - MCP Tool-Use Benchmarking Research)
-
-**🔬 MCP TOOL-USE BENCHMARKING RESEARCH COMPLETE:**
-- **Academic Landscape Analysis**: Surveyed existing tool-use benchmarks (Recovery-Bench, τ-bench, ARTIST)
-- **Research Gap Identification**: Documented Layer 0 gap - "Should I use tools?" decision untested
-- **MCP-Bench Design**: Proposed 4-level evaluation framework (Discovery, Selection, Recovery, Chaining)
-- **Practical Solutions**: Designed 5 solutions for MetaMCP-RAG organic triggering (heuristic, ML-based, architectural)
-- **Implementation Roadmap**: Phased approach from immediate fixes (20-30% improvement) to long-term architecture (60-80%)
-- **Comprehensive Documentation**: Created 60+ page research report covering methodology gaps, benchmark design, and solutions
-- **Research Report Location**: `docs/MCP_TOOL_USE_BENCHMARKING_RESEARCH.md`
-
-**Key Findings:**
-- NO existing benchmarks test organic tool discovery (Layer 0 decision)
-- Recovery-Bench is closest to organic testing (error detection)
-- MetaMCP-RAG excels at Layer 2 (selection) but struggles with Layer 0 (triggering)
-- 4 critical methodology gaps identified in current research
-- Contextual bandit approach (from ProCC framework) applicable to tool-use decisions
 
 ### ✅ Completed (October 10, 2025 - Unified Runner Integration)
 
@@ -159,14 +141,7 @@
 
 ## ⏳ Next Steps (Priority Order)
 
-1. **Immediate (Next Session)** - MCP-BENCH IMPLEMENTATION
-   - Implement Solution 1: Query Classification Hook (2-3 hours, 20-30% improvement)
-   - Implement Solution 3: Self-Prompting Protocol (1 hour, 15-25% improvement)
-   - Design MCP-Bench Level 1: Create 30 discovery test cases
-   - Run baseline evaluation with qwen2.5-coder:3b
-   - Establish measurement framework for organic triggering improvements
-
-1. **Secondary Priority** - LIVECODEBENCH FIX
+1. **Immediate (Next Session)** - CRITICAL FIX NEEDED
    - Resolve LiveCodeBench datasets compatibility issue:
      - Option A: Downgrade `datasets` package in LiveCodeBench venv to <3.0
      - Option B: Contact LiveCodeBench maintainers about Parquet migration
@@ -309,5 +284,5 @@
 
 ---
 
-**Status:** MCP RESEARCH COMPLETE ✅
-**Next Session Focus:** MCP-Bench implementation (Phase 1: Query classification + self-prompting) and baseline evaluation
+**Status:** DEPENDENCIES INSTALLED ✅
+**Next Session Focus:** Adapter testing with real models and temporal filtering validation
