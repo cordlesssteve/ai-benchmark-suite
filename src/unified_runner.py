@@ -36,6 +36,9 @@ class Harness(Enum):
     """Available evaluation harnesses"""
     BIGCODE = "bigcode"
     LM_EVAL = "lm_eval"
+    LIVECODEBENCH = "livecodebench"
+    BIGCODEBENCH = "bigcodebench"
+    SWEBENCH_LIVE = "swebench_live"
     CUSTOM = "custom"
 
 class UnifiedRunner:
@@ -279,6 +282,96 @@ class UnifiedRunner:
                         },
                         execution_time=result.execution_time
                     )
+            elif harness == Harness.LIVECODEBENCH:
+                from model_interfaces.livecodebench_adapter import LiveCodeBenchAdapter
+
+                adapter = LiveCodeBenchAdapter()
+                print("🧪 Using LiveCodeBenchAdapter with temporal contamination filtering")
+
+                # Get task config to extract parameters
+                task_config = self.suite_config.get('tasks', {}).get(task, {})
+                release_version = task_config.get('release_version', 'release_v6')
+                scenario = task_config.get('scenario', 'codegeneration')
+
+                # Run evaluation
+                result_dict = adapter.run_evaluation(
+                    model_name=model,
+                    cutoff_date=kwargs.get('cutoff_date'),
+                    n_samples=kwargs.get('n_samples', 10),
+                    temperature=kwargs.get('temperature', 0.2)
+                )
+
+                # Parse results (simplified for now - would need proper result parsing)
+                return BenchmarkResult(
+                    harness="livecodebench",
+                    task=task,
+                    model=model,
+                    score=0.0,  # Would extract from result_dict
+                    metrics=result_dict,
+                    metadata={
+                        "release_version": release_version,
+                        "scenario": scenario,
+                        "contamination_protection": "temporal"
+                    },
+                    execution_time=0.0
+                )
+            elif harness == Harness.BIGCODEBENCH:
+                from model_interfaces.bigcodebench_adapter import BigCodeBenchAdapter
+
+                adapter = BigCodeBenchAdapter()
+                print("🎯 Using BigCodeBenchAdapter with enhanced quality evaluation")
+
+                # Get task config
+                task_config = self.suite_config.get('tasks', {}).get(task, {})
+                subset = task_config.get('subset', 'full')
+
+                # Run evaluation
+                result_dict = adapter.run_evaluation(
+                    model_name=model,
+                    split=kwargs.get('split', 'complete')
+                )
+
+                return BenchmarkResult(
+                    harness="bigcodebench",
+                    task=task,
+                    model=model,
+                    score=0.0,  # Would extract from result_dict
+                    metrics=result_dict,
+                    metadata={
+                        "subset": subset,
+                        "contamination_status": "MODERATE"
+                    },
+                    execution_time=0.0
+                )
+            elif harness == Harness.SWEBENCH_LIVE:
+                from model_interfaces.swebench_live_adapter import SWEbenchLiveAdapter
+
+                adapter = SWEbenchLiveAdapter()
+                print("🏗️ Using SWEbenchLiveAdapter for repository-level evaluation")
+
+                # Get task config
+                task_config = self.suite_config.get('tasks', {}).get(task, {})
+                split = task_config.get('split', 'test')
+
+                # Run evaluation
+                result_dict = adapter.run_evaluation(
+                    model_name=model,
+                    split=split,
+                    max_instances=kwargs.get('limit', 50)
+                )
+
+                return BenchmarkResult(
+                    harness="swebench_live",
+                    task=task,
+                    model=model,
+                    score=0.0,  # Would extract from result_dict
+                    metrics=result_dict,
+                    metadata={
+                        "split": split,
+                        "contamination_protection": "temporal"
+                    },
+                    execution_time=0.0
+                )
             else:
                 # Fallback to direct interface for other harnesses
                 test_prompt = "def fibonacci(n):\n    # Complete this function\n"

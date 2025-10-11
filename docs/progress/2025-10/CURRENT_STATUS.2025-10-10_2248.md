@@ -1,26 +1,16 @@
 # AI Benchmark Suite - Current Status
 
-**Status:** ACTIVE PROJECT
-**Last Updated:** 2025-10-10 22:48
-**Project Phase:** Unified Runner Integration Complete
-**Next Phase:** Resolve LiveCodeBench Compatibility & Testing
-**Previous Archive:** docs/progress/2025-10/CURRENT_STATUS.2025-10-10_2248.md
+**Status:** SUPERSEDED PROJECT
+**Last Updated:** 2025-10-08 13:56
+**Project Phase:** Dependencies Installed & Validated
+**Next Phase:** Adapter Testing & Integration
+**Archived Version:** docs/progress/2025-10/CURRENT_STATUS_2025-10-08_1356.md
 
 ---
 
 ## 📊 Current Reality
 
-### ✅ Completed (October 10, 2025 - Unified Runner Integration)
-
-**🔧 UNIFIED RUNNER INTEGRATION COMPLETE:**
-- **Harness Routing**: Added 3 new harness types (LiveCodeBench, BigCodeBench, SWEbench_Live) to unified runner
-- **Task Mappings**: Updated harness_mappings.yaml with 8 new contamination-resistant task mappings
-- **Adapter Integration**: Implemented routing logic for all 3 contamination-resistant adapters in unified_runner.py
-- **Ollama Support for LiveCodeBench**: Created custom OllamaRunner, registered 4 Ollama models with proper training cutoffs
-- **Model Configuration**: qwen2.5-coder:3b, codellama:13b, phi3.5, qwen2.5-coder:7b ready for evaluation
-- **Documentation**: Harness configs added for all 3 new benchmarks with proper default arguments
-
-### ✅ Completed (October 8, 2025 - Adapter Development)
+### ✅ Completed (October 8, 2025 - MAJOR UPDATE)
 
 **🎉 CONTAMINATION-RESISTANT BENCHMARKS INTEGRATED:**
 - **Benchmark Contamination Research**: Complete 2025 literature review on contamination
@@ -141,26 +131,24 @@
 
 ## ⏳ Next Steps (Priority Order)
 
-1. **Immediate (Next Session)** - CRITICAL FIX NEEDED
-   - Resolve LiveCodeBench datasets compatibility issue:
-     - Option A: Downgrade `datasets` package in LiveCodeBench venv to <3.0
-     - Option B: Contact LiveCodeBench maintainers about Parquet migration
-     - Option C: Use pre-downloaded dataset files if available
-   - Test BigCodeBench adapter independently (may not have same issue)
-   - Test SWEbench-Live adapter independently
+1. **Immediate (Next Session)** ✅ COMPLETE
+   - ✅ Set up LiveCodeBench dependencies (9.4GB installed)
+   - ✅ Set up BigCodeBench dependencies (1.7GB installed)
+   - ✅ Set up SWE-bench Live dependencies (409MB installed)
+   - ✅ Validate all three modules import correctly
 
-2. **Short-term (This Week)** - AFTER BLOCKER RESOLVED
-   - Test LiveCodeBench adapter with qwen2.5-coder:3b
-   - Run contamination_resistant_quick suite across all 3 benchmarks
+2. **Short-term (This Week)** - NOW PRIORITY
+   - Test LiveCodeBench adapter with real Ollama model
+   - Test BigCodeBench adapter with sample evaluation
+   - Test SWE-bench Live adapter with sample instance
    - Verify temporal filtering separates clean/contaminated problems
    - Validate contamination metadata appears in results
-   - Test with multiple Ollama models (phi3.5, codellama)
 
 3. **Medium-term (Next 2 Weeks)**
+   - Integrate adapters with unified_runner.py
    - Run full contamination-resistant suite evaluation
    - Compare results: legacy vs contamination-resistant
    - Update production deployment with new benchmarks
-   - Performance benchmarking of new adapters
 
 4. **Long-term (Next Month)**
    - Archive legacy contaminated benchmarks
@@ -245,15 +233,12 @@
 ## 🚨 Known Issues & Blockers
 
 **Current Blockers:**
-- **LiveCodeBench Datasets Compatibility** (CRITICAL): HuggingFace `datasets` v3.0+ no longer supports loading scripts. LiveCodeBench requires downgrade to datasets <3.0 or upstream fix to use Parquet format.
-  - Error: `RuntimeError: Dataset scripts are no longer supported, but found code_generation_lite.py`
-  - Impact: Cannot run LiveCodeBench evaluations until resolved
-  - Solutions: Downgrade datasets package, contact maintainers, or use pre-downloaded datasets
+- None - all dependencies installed and validated ✅
 
 **Known Issues:**
-- Model cutoffs verified for qwen2.5-coder:3b (2024-09-30), phi3.5 (2024-08-31), codellama (2024-01-31)
-- Unified runner integration complete but blocked by LiveCodeBench compatibility issue
-- BigCodeBench and SWEbench-Live adapters not yet tested (may work independently)
+- Model cutoffs need verification for Ollama-specific models
+- Unified runner integration not yet tested
+- Adapter testing with real models pending
 
 **Technical Debt:**
 - Legacy HumanEval/MBPP integration still present (to be archived)

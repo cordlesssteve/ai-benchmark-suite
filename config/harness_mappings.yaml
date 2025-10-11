@@ -2,7 +2,17 @@
 # Defines which evaluation harness to use for each task
 
 task_mappings:
-  # BigCode tasks (code generation)
+  # Contamination-resistant tasks (RECOMMENDED)
+  livecodebench_v6: livecodebench
+  livecodebench_v6_full: livecodebench
+  livecodebench_recent: livecodebench
+  bigcodebench: bigcodebench
+  bigcodebench_full: bigcodebench
+  bigcodebench_sample: bigcodebench
+  swebench_live_latest: swebench_live
+  swebench_live_month: swebench_live
+
+  # BigCode tasks (code generation - LEGACY)
   humaneval: bigcode
   mbpp: bigcode
   apps: bigcode
@@ -44,6 +54,34 @@ harness_configs:
       model: "hf"
       batch_size: "auto"
       device: "auto"
+
+  livecodebench:
+    executable: "harnesses/livecodebench/.venv/bin/python"
+    main_script: "-m lcb_runner.runner.main"
+    working_directory: "harnesses/livecodebench"
+    default_args:
+      release_version: "release_v6"
+      scenario: "codegeneration"
+      n_samples: 10
+      temperature: 0.2
+
+  bigcodebench:
+    executable: "harnesses/bigcodebench/.venv/bin/python"
+    main_script: "-m bigcodebench.generate"
+    working_directory: "harnesses/bigcodebench"
+    default_args:
+      subset: "full"
+      split: "complete"
+      backend: "vllm"
+
+  swebench_live:
+    executable: "harnesses/swebench-live/.venv/bin/python"
+    main_script: "-m swebench.harness.run_evaluation"
+    working_directory: "harnesses/swebench-live"
+    default_args:
+      split: "test"
+      max_workers: 4
+      timeout: 300
 
 # Model type detection for harness selection
 model_patterns:

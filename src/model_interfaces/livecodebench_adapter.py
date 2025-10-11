@@ -167,7 +167,7 @@ class LiveCodeBenchAdapter:
             "--model", model_name,
             "--scenario", self.scenario,
             "--release_version", self.release_version,
-            "--n_samples", str(n_samples),
+            "--n", str(n_samples),
             "--temperature", str(temperature),
         ]
 
