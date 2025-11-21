@@ -10,11 +10,13 @@
 ## NOTE: Using tilde paths (~/.claude/...) works across all project locations
 ## Alternative formats: relative (@../../../.claude/...) or absolute (@/home/user/...)
 
-@~/.claude/config/intellectual-honesty.md
-@~/.claude/config/verification-protocols.md
-@~/.claude/config/file-organization.md
-@~/.claude/config/backup-systems.md
-@~/.claude/config/mcp-discovery-protocol.md
+## Automatically loaded from ~/.claude/CLAUDE.md (no imports needed):
+## - intellectual-honesty.md (uncertainty markers, evidence requirements)
+## - verification-protocols.md (compilation/instantiation/integration gates)
+## - file-organization.md (project documentation standards, archival protocol)
+## - backup-systems.md (automated backup information)
+## - mcp-discovery-protocol.md (when to discover specialized MCP tools)
+## - anti-pattern-guardrails.md (LLM failure mode prevention)
 
 ## ═══════════════════════════════════════════════════════
 ## PROJECT-SPECIFIC CONFIGURATION
