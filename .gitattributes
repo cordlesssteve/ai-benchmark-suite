@@ -1,0 +1,32 @@
+# Git-crypt encrypted files
+# These files will be encrypted at rest on GitHub but auto-decrypt locally when unlocked
+
+# Claude Code configuration
+.claude/** filter=git-crypt diff=git-crypt
+CLAUDE.md filter=git-crypt diff=git-crypt
+CLAUDE.md.backup-* filter=git-crypt diff=git-crypt
+
+# Planning documents (current)
+CURRENT_STATUS.md filter=git-crypt diff=git-crypt
+CURRENT_STATUS.backup.*.md filter=git-crypt diff=git-crypt
+CURRENT_STATUS.*.md filter=git-crypt diff=git-crypt
+ACTIVE_PLAN.md filter=git-crypt diff=git-crypt
+ACTIVE_PLAN.*.md filter=git-crypt diff=git-crypt
+ECOSYSTEM_STATUS.md filter=git-crypt diff=git-crypt
+ECOSYSTEM_STATUS_*.md filter=git-crypt diff=git-crypt
+ECOTAG.yaml filter=git-crypt diff=git-crypt
+
+# Planning document archives
+docs/progress/**/CURRENT_STATUS*.md filter=git-crypt diff=git-crypt
+docs/progress/**/ACTIVE_PLAN*.md filter=git-crypt diff=git-crypt
+docs/progress/**/ECOSYSTEM_STATUS*.md filter=git-crypt diff=git-crypt
+
+# Integration/verification reports (may contain sensitive details)
+INTEGRATION_*.md filter=git-crypt diff=git-crypt
+
+# Keep these files UNENCRYPTED (public-facing)
+# README.md - no filter (public)
+# LICENSE - no filter (public)
+# PROJECT_CHARTER.md - no filter (public, foundational)
+# ROADMAP.md - no filter (public, strategic overview)
+# TESTING.md - no filter (public, testing docs)

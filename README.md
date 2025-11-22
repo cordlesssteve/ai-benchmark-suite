@@ -1,5 +1,20 @@
 # Unified AI Benchmarking Suite
 
+
+---
+
+### Encrypted Files Notice
+
+This repository uses **git-crypt** to encrypt sensitive planning documents. Some files (`.claude/`, `CURRENT_STATUS.md`, `ACTIVE_PLAN.md`, etc.) will appear as binary data unless you have the decryption key.
+
+**To decrypt (authorized users only):**
+```bash
+git-crypt unlock ~/secure-keys/git-crypt-keys/ai-benchmark-suite.key
+```
+
+**Files affected:** Planning documents, Claude Code configs, progress archives. Public documentation (README, LICENSE, PROJECT_CHARTER) remains unencrypted.
+
+---
 A comprehensive, unified framework for evaluating AI models across multiple domains using established evaluation harnesses.
 
 ## 🏗️ Architecture
